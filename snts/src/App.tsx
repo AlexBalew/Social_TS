@@ -4,26 +4,41 @@ import Header from './Components/Header/Header';
 import Nav from './Components/Nav/Nav';
 import Profile from './Components/Profile/Profile';
 import Dialogs from "./Components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
-import {PostsType, RootStateType} from "./Components/redux/state";
-import MyPosts from "./Components/Profile/MyPosts/MyPosts";
+import {Route} from "react-router-dom";
+import {
+    addPost,
+    DialogsPageType,
+    ProfilePageType,
+    RootStateType,
+    SideBarType,
+    UpdateNewPostText
+} from './Components/redux/state'
 
+type AppPropsType = {
+    profilePage: ProfilePageType
+    dialogsPage: DialogsPageType
+    sideBar: SideBarType
+    addPost: (postMessage: string) => void
+    UpdateNewPostText: (newText: string) => void
+    newPostText: string
+}
 
-const App = (props: RootStateType) => {
+const App = (props: AppPropsType) => {
 
     return (
-        <BrowserRouter>
-            <div className='app-wrapper'>
-                <Header/>
-                <Nav/>
-                <div className='app-wrapper-content'>
-                    <Route path={'/Profile'} render={() => <Profile posts={props.profilePage.posts}/>}/>
-                    <Route path={'/Dialogs'} render={() => <Dialogs dialogs={props.dialogsPage.dialogs}
-                                                                    messages={props.dialogsPage.messages}/>}/>
-                </div>
-
+        <div className='app-wrapper'>
+            <Header/>
+            <Nav/>
+            <div className='app-wrapper-content'>
+                <Route path={'/Profile'}
+                       render={() => <Profile posts={props.profilePage.posts}
+                                              addPost={props.addPost}
+                                              UpdateNewPostText={props.UpdateNewPostText}
+                                              newPostText={props.newPostText}/>}/>
+                <Route path={'/Dialogs'} render={() => <Dialogs dialogs={props.dialogsPage.dialogs}
+                                                                messages={props.dialogsPage.messages}/>}/>
             </div>
-        </BrowserRouter>
+        </div>
     );
 }
 export default App;

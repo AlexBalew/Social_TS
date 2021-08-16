@@ -1,16 +1,37 @@
+import reportWebVitals from './reportWebVitals';
+import state, {subscribe} from "./Components/redux/state";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
-import state from "./Components/redux/state";
 
+import {BrowserRouter} from "react-router-dom";
+import {
+    addPost,
+    RootStateType,
+    UpdateNewPostText
+} from "./Components/redux/state";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App profilePage={state.profilePage} sideBar={state.sideBar} dialogsPage={state.dialogsPage}/>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+export let rerenderEntireTree = (props: RootStateType) => {
+
+    ReactDOM.render(
+        <BrowserRouter>
+            <App profilePage={props.profilePage}
+                 sideBar={props.sideBar}
+                 dialogsPage={props.dialogsPage}
+                 addPost={addPost}
+                 UpdateNewPostText={UpdateNewPostText}
+                 newPostText={props.profilePage.newPostText}/>
+        </BrowserRouter>,
+        document.getElementById('root')
+    );
+
+}
+
+reportWebVitals();
+
+rerenderEntireTree(state)
+
+subscribe(rerenderEntireTree)
 
 reportWebVitals();
