@@ -1,8 +1,8 @@
 import React from 'react';
-import {SideBarType} from "../redux/state";
+import {FriendsBarType} from "../redux/store";
 
 
-const Friends = (props: SideBarType) =>{
+const Friends = (props: FriendsBarType) =>{
 
     return (
         <div>

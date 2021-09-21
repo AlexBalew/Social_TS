@@ -7,7 +7,7 @@ const ProfileInfo = () => {
         <div>
             <div>
                 <img
-                    src='https://www.imagesystems.com.mt/wp-content/uploads/2019/10/Who-we-are-Image-1-1-768x657.png'>
+                    src='https://www.imagesystems.com.mt/wp-content/uploads/2019/10/Who-we-are-Image-1-1-768x657.png' alt={'main background'}>
                 </img>
             </div>
             <div className={classes.descriptionBlock}>

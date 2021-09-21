@@ -1,27 +1,18 @@
 import reportWebVitals from './reportWebVitals';
-import state, {subscribe} from "./Components/redux/state";
+import store from "./Components/redux/redux-store";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-
 import {BrowserRouter} from "react-router-dom";
-import {
-    addPost,
-    RootStateType,
-    UpdateNewPostText
-} from "./Components/redux/state";
+import {RootStateType} from "./Components/redux/store";
 
-export let rerenderEntireTree = (props: RootStateType) => {
+export let reRenderEntireTree = (state: RootStateType) => { //what state&state type???
 
     ReactDOM.render(
         <BrowserRouter>
-            <App profilePage={props.profilePage}
-                 sideBar={props.sideBar}
-                 dialogsPage={props.dialogsPage}
-                 addPost={addPost}
-                 UpdateNewPostText={UpdateNewPostText}
-                 newPostText={props.profilePage.newPostText}/>
+            <App dispatch={store.dispatch.bind(store)}
+                 store={store}/>
         </BrowserRouter>,
         document.getElementById('root')
     );
@@ -30,8 +21,11 @@ export let rerenderEntireTree = (props: RootStateType) => {
 
 reportWebVitals();
 
-rerenderEntireTree(state)
+reRenderEntireTree(store.getState())
 
-subscribe(rerenderEntireTree)
+store.subscribe(() => {
+    let state = store.getState()
+    reRenderEntireTree(state)
+})
 
 reportWebVitals();

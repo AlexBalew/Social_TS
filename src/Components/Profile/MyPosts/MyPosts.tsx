@@ -1,36 +1,40 @@
-import React, {ChangeEvent } from 'react';
+import React from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
-import {PostType} from "../../redux/state";
+import {AllACTypes, PostType} from "../../redux/store";
+import { v1 } from 'uuid';
+import {addPostAC, onChangeHandlerAC} from "../../redux/Reducers/profile-reducer";
+
 
 type MyPostsPropsType = {
     posts: Array<PostType>
-    addPost: (postMessage: string) => void
     newPostText: string
-    UpdateNewPostText: (newText: string) => void
+    dispatch: (action: AllACTypes) => void
 }
+
 
 const MyPosts = (props: MyPostsPropsType) => {
 
-    let postsElements = props.posts.map(m => <Post message={m.message} likesCounter={m.likesCounter} id={m.id}/>)
+    let postsElements = props.posts.map(m => <Post key={v1()} message={m.message}
+                                                   likesCounter={m.likesCounter} //уточнить
+                                                   id={m.id}/>)
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
-    const postMessage = () => {
-        if (newPostElement.current) {
-            props.addPost(newPostElement.current.value)
-        }
-    }
-
-    let onPostChange =()=> {
+    const addPost = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value
-            props.UpdateNewPostText(text)
+            let action = addPostAC(text)
+            props.dispatch(action)
         }
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-            props.UpdateNewPostText(e.currentTarget.value)
+    const onChangeHandler = () => {
+        if (newPostElement.current) {
+            let text = newPostElement.current.value
+            let action = onChangeHandlerAC(text)
+            props.dispatch(action)
+        }
     }
 
 
@@ -40,7 +44,7 @@ const MyPosts = (props: MyPostsPropsType) => {
             <div>
                 <textarea ref={newPostElement} value={props.newPostText} onChange={onChangeHandler}/>
                 <div>
-                    <button onClick={postMessage}>
+                    <button onClick={addPost}>
                         Add post
                     </button>
                 </div>
