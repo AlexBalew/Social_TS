@@ -1,6 +1,6 @@
-import profileReducer, {addPostAC, onChangeHandlerAC} from "./Reducers/profile-reducer";
-import dialogsReducer, {sendMessageBodyAC, updateNewMessageBodyAC} from "./Reducers/dialogs-reducer";
-import friendsBarReducer from "./Reducers/friendsBar-reducer";
+import profileReducer, {addPostAC, onChangeHandlerAC} from "../Reducers/profile-reducer";
+import dialogsReducer, {sendMessageBodyAC, updateNewMessageBodyAC} from "../Reducers/dialogs-reducer";
+import friendsBarReducer from "../Reducers/friendsBar-reducer";
 
 type FriendType = {
     id: number

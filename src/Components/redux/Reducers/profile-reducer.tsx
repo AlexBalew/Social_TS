@@ -1,4 +1,15 @@
-import {AllACTypes, PostType, ProfilePageType} from "../store";
+import {AllACTypes} from "../redux-store";
+
+export type PostType = {
+    id: number
+    message: string
+    likesCounter: number
+}
+
+export type ProfilePageType = {
+    posts: Array<PostType>
+    newPostText: string
+}
 
 let initialState: ProfilePageType = {
     newPostText: '',

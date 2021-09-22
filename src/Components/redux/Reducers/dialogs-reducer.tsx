@@ -1,4 +1,24 @@
-import {AllACTypes, DialogsPageType} from "../store";
+import {AllACTypes} from "../redux-store";
+
+export type MessageType = {
+    id: number
+    message: string
+}
+
+export type MessagesType = Array<MessageType>
+
+export type DialogType = {
+    id: number
+    name: string
+}
+
+export type DialogsType = Array<DialogType>
+
+export type DialogsPageType = {
+    dialogs: DialogsType
+    messages: MessagesType
+    newMessageBody: string
+}
 
 let initialState: DialogsPageType = {
     dialogs: [

@@ -1,5 +1,5 @@
 import React from 'react';
-import {FriendsBarType} from "../redux/store";
+import {FriendsBarType} from "../redux/OldStoreModel/store";
 
 
 const Friends = (props: FriendsBarType) =>{

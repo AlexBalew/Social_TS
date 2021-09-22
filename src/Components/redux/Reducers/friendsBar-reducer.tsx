@@ -1,4 +1,15 @@
-import {AllACTypes, FriendsBarType} from "../store";
+import {AllACTypes} from "../redux-store";
+
+type FriendType = {
+    id: number
+    name: string
+}
+
+export type FriendsType = Array<FriendType>
+
+export type FriendsBarType = {
+    friends: FriendsType
+}
 
 let initialState: FriendsBarType = {
     friends: [
