@@ -8,6 +8,7 @@ import {AllACTypes, mainReducerType} from './Components/redux/redux-store';
 import {Store} from "redux";
 import {RootStateType} from "./index";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import Friends from "./Components/Friends/Friends";
 
 
 type AppPropsType = {
@@ -26,6 +27,7 @@ const App: React.FC<AppPropsType> = (props) => {
             <div className='app-wrapper-content'>
                 <Route path={'/Profile'} render={() => <Profile store={props.store}/>}/>
                 <Route path={'/Dialogs'} render={() => <DialogsContainer store={props.store}/>}/>
+                <Route path={'/Friends'} render={() => <Friends store={props.store}/>}/>
             </div>
         </div>
     );
