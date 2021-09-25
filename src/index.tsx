@@ -8,6 +8,7 @@ import {BrowserRouter} from "react-router-dom";
 import {ProfilePageType} from "./Components/redux/Reducers/profile-reducer";
 import { DialogsPageType } from './Components/redux/Reducers/dialogs-reducer';
 import { FriendsBarType } from './Components/redux/Reducers/friendsBar-reducer';
+import {Provider} from "react-redux";
 
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -19,9 +20,10 @@ export let reRenderEntireTree = (state: RootStateType) => {
 
     ReactDOM.render(
         <BrowserRouter>
+            <Provider store={store}>
             <App dispatch={store.dispatch.bind(store)}
-                 state={state}
                  store={store}/>
+            </Provider>
         </BrowserRouter>,
         document.getElementById('root')
     );

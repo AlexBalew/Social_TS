@@ -3,9 +3,14 @@ import { v1 } from 'uuid';
 import { FriendType } from '../redux/Reducers/friendsBar-reducer';
 import {Friend} from "./Friend";
 import s from './Friends.module.css'
+import {Store} from "redux";
+import {AllACTypes, mainReducerType} from "../redux/redux-store";
 
+export type FriendsPropsType = {
+    store: Store<mainReducerType, AllACTypes>
+}
 
-const Friends = (props: any) =>{
+const Friends = (props: FriendsPropsType) =>{
 
     let state = props.store.getState()
 

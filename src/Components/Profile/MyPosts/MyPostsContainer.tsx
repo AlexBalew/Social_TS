@@ -1,34 +1,41 @@
-import React from 'react';
-import {AllACTypes, mainReducerType} from "../../redux/redux-store";
-import {addPostAC, onChangeHandlerAC} from "../../redux/Reducers/profile-reducer";
+import {addPostAC, onChangeHandlerAC, PostType} from "../../redux/Reducers/profile-reducer";
 import MyPosts from "./MyPosts";
-import {Store} from "redux";
+import { connect } from 'react-redux';
+import {RootStateType} from "../../../index";
+import { Dispatch } from 'redux';
 
 
-type MyPostsContainerPropsType = {
-    store: Store<mainReducerType, AllACTypes>
+export type mapDispatchToPropsType = {
+    updateNewPostText: (text: string) => void
+    addPost: () => void
+}
+
+export type mapStateToPropsType = {
+    posts: Array<PostType>
+    newPostText: string
 }
 
 
-const MyPostsContainer = (props: MyPostsContainerPropsType) => {
-
-    let state = props.store.getState()
-
-    const addPost = () => {
-        let action = addPostAC(state.profilePage.newPostText)
-        props.store.dispatch(action)
+const mapStateToProps = (state: RootStateType): mapStateToPropsType => {
+    return {
+        posts: state.profilePage.posts,
+        newPostText: state.profilePage.newPostText
     }
-
-    const onChangeHandler = (text: string) => {
-        let action = onChangeHandlerAC(text)
-        props.store.dispatch(action)
-    }
-
-
-    return (<MyPosts posts={state.profilePage.posts}
-                     updateNewPostText={onChangeHandler}
-                     newPostText={state.profilePage.newPostText}
-                     addPost={addPost}/>)
 }
 
-export default MyPostsContainer;
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+    return {
+        updateNewPostText: (text: string) => {
+            let action = onChangeHandlerAC(text)
+            dispatch(action)
+        },
+        addPost: () => {
+            let action = addPostAC()
+            dispatch(action)
+        }
+    }
+}
+
+const MyPostsContainerWithConnect = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+
+export default MyPostsContainerWithConnect;

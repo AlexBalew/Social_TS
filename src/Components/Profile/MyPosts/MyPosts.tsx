@@ -13,7 +13,7 @@ type MyPostsPropsType = {
 }
 
 
-const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = (props: MyPostsPropsType) => {
 
     let postsElements = props.posts.map(m => <Post key={v1()} message={m.message}
                                                    likesCounter={m.likesCounter}

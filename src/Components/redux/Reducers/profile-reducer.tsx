@@ -41,10 +41,9 @@ const profileReducer = (state: ProfilePageType = initialState, action: AllACType
 }
 
 export default profileReducer;
-export const addPostAC = (text: string) => {
+export const addPostAC = () => {
     return {
         type: 'ADD_POST',
-        newPostText: text
     } as const
 }
 

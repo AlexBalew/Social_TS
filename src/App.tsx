@@ -6,7 +6,6 @@ import Profile from './Components/Profile/Profile';
 import {Route} from "react-router-dom";
 import {AllACTypes, mainReducerType} from './Components/redux/redux-store';
 import {Store} from "redux";
-import {RootStateType} from "./index";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import Friends from "./Components/Friends/Friends";
 
@@ -14,7 +13,6 @@ import Friends from "./Components/Friends/Friends";
 type AppPropsType = {
     dispatch: (action: AllACTypes) => void
     store: Store<mainReducerType, AllACTypes>
-    state: RootStateType
 }
 
 const App: React.FC<AppPropsType> = (props) => {
@@ -25,8 +23,8 @@ const App: React.FC<AppPropsType> = (props) => {
             <Header/>
             <Nav/>
             <div className='app-wrapper-content'>
-                <Route path={'/Profile'} render={() => <Profile store={props.store}/>}/>
-                <Route path={'/Dialogs'} render={() => <DialogsContainer store={props.store}/>}/>
+                <Route path={'/Profile'} render={() => <Profile />}/>
+                <Route path={'/Dialogs'} render={() => <DialogsContainer />}/>
                 <Route path={'/Friends'} render={() => <Friends store={props.store}/>}/>
             </div>
         </div>
