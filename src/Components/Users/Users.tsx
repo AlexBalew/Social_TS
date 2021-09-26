@@ -16,7 +16,7 @@ let Users = (props: UsersPropsType) => {
             props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.photoURL} className={s.photo} alt={'User\'s avatar'}/>
+                            <img src={u.photoURL} className={s.photo} alt='Users avatar'/>
                         </div>
                         <div>
                             {u.followed
