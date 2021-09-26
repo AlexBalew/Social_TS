@@ -8,6 +8,7 @@ import {AllACTypes, mainReducerType} from './Components/redux/redux-store';
 import {Store} from "redux";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import Friends from "./Components/Friends/Friends";
+import UsersContainer from "./Components/Users/UsersContainer";
 
 
 type AppPropsType = {
@@ -23,9 +24,10 @@ const App: React.FC<AppPropsType> = (props) => {
             <Header/>
             <Nav/>
             <div className='app-wrapper-content'>
-                <Route path={'/Profile'} render={() => <Profile />}/>
-                <Route path={'/Dialogs'} render={() => <DialogsContainer />}/>
+                <Route path={'/Profile'} render={() => <Profile/>}/>
+                <Route path={'/Dialogs'} render={() => <DialogsContainer/>}/>
                 <Route path={'/Friends'} render={() => <Friends store={props.store}/>}/>
+                <Route path={'/Users'} render={() => <UsersContainer/>}/>
             </div>
         </div>
     );
