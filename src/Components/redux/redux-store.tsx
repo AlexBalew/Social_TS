@@ -1,5 +1,9 @@
 import {combineReducers, createStore, Store} from "redux";
-import profileReducer, {addPostAC, onChangeHandlerAC} from "./Reducers/profile-reducer";
+import profileReducer, {
+    addPostAC,
+    onChangeHandlerAC,
+    setUserProfile,
+} from "./Reducers/profile-reducer";
 import dialogsReducer, {sendMessageBodyAC, updateNewMessageBodyAC} from "./Reducers/dialogs-reducer";
 import friendsBarReducer from "./Reducers/friendsBar-reducer";
 import usersReducer, {
@@ -20,9 +24,10 @@ export type AllACTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof setUsers> |
     ReturnType<typeof setCurrentPage> |
     ReturnType<typeof setTotalUsersAmount> |
-    ReturnType<typeof switchPreloader>
+    ReturnType<typeof switchPreloader> |
+    ReturnType<typeof setUserProfile>
 
-export type mainReducerType = ReturnType<typeof mainReducer>
+export type MainReducerType = ReturnType<typeof mainReducer>
 
 let mainReducer = combineReducers({
     profilePage: profileReducer,
@@ -31,6 +36,6 @@ let mainReducer = combineReducers({
     usersPage: usersReducer,
 })
 
-let store: Store<mainReducerType, AllACTypes> = createStore(mainReducer)
+let store: Store<MainReducerType, AllACTypes> = createStore(mainReducer)
 
 export default store
