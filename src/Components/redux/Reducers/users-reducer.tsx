@@ -17,6 +17,7 @@ export type UsersPageType = {
     pageSize: number
     totalUsersAmount: number
     currentPage: number
+    isFetching: boolean
 }
 
 let initialState: UsersPageType = {
@@ -24,6 +25,7 @@ let initialState: UsersPageType = {
     pageSize: 5,
     totalUsersAmount: 100,
     currentPage: 1,
+    isFetching: false
 }
 
 const usersReducer = (state: UsersPageType = initialState, action: AllACTypes): UsersPageType => {
@@ -43,6 +45,9 @@ const usersReducer = (state: UsersPageType = initialState, action: AllACTypes): 
         }
         case 'SET_TOTAL_USERS_AMOUNT': {
             return {...state, totalUsersAmount: action.totalAmount}
+        }
+        case 'SWITCH_PRELOADER': {
+            return {...state, isFetching: action.isFetching}
         }
         default:
             return state
@@ -84,5 +89,12 @@ export const setTotalUsersAmountAC = (totalAmount: number) => {
     return {
         type: 'SET_TOTAL_USERS_AMOUNT',
         totalAmount,
+    } as const
+}
+
+export const switchPreloaderAC = (isFetching: boolean) => {
+    return {
+        type: 'SWITCH_PRELOADER',
+        isFetching
     } as const
 }

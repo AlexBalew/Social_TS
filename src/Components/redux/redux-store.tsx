@@ -6,7 +6,7 @@ import usersReducer, {
     followAC,
     setCurrentPageAC,
     setTotalUsersAmountAC,
-    setUsersAC,
+    setUsersAC, switchPreloaderAC,
     unfollowAC
 } from "./Reducers/users-reducer";
 
@@ -19,8 +19,8 @@ export type AllACTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof unfollowAC> |
     ReturnType<typeof setUsersAC> |
     ReturnType<typeof setCurrentPageAC> |
-    ReturnType<typeof setTotalUsersAmountAC>
-
+    ReturnType<typeof setTotalUsersAmountAC> |
+    ReturnType<typeof switchPreloaderAC>
 
 export type mainReducerType = ReturnType<typeof mainReducer>
 

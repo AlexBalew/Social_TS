@@ -8,3 +8,11 @@
     cursor: pointer;
     color: firebrick;
 }
+
+.notSelected {
+    cursor: pointer;
+}
+
+.preloader {
+   position: absolute;
+}
