@@ -57,42 +57,42 @@ const usersReducer = (state: UsersPageType = initialState, action: AllACTypes): 
 export default usersReducer;
 
 
-export const followAC = (userID: number) => {
+export const follow = (userID: number) => {
     return {
         type: 'FOLLOW',
         userID,
     } as const
 }
 
-export const unfollowAC = (userID: number) => {
+export const unfollow = (userID: number) => {
     return {
         type: 'UNFOLLOW',
         userID,
     } as const
 }
 
-export const setUsersAC = (users: Array<UserType>) => {
+export const setUsers = (users: Array<UserType>) => {
     return {
         type: 'SET_USERS',
         users,
     } as const
 }
 
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return {
         type: 'SET_CURRENT_PAGE',
         currentPage,
     } as const
 }
 
-export const setTotalUsersAmountAC = (totalAmount: number) => {
+export const setTotalUsersAmount = (totalAmount: number) => {
     return {
         type: 'SET_TOTAL_USERS_AMOUNT',
         totalAmount,
     } as const
 }
 
-export const switchPreloaderAC = (isFetching: boolean) => {
+export const switchPreloader = (isFetching: boolean) => {
     return {
         type: 'SWITCH_PRELOADER',
         isFetching

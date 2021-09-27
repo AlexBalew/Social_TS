@@ -3,11 +3,11 @@ import profileReducer, {addPostAC, onChangeHandlerAC} from "./Reducers/profile-r
 import dialogsReducer, {sendMessageBodyAC, updateNewMessageBodyAC} from "./Reducers/dialogs-reducer";
 import friendsBarReducer from "./Reducers/friendsBar-reducer";
 import usersReducer, {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersAmountAC,
-    setUsersAC, switchPreloaderAC,
-    unfollowAC
+    follow,
+    setCurrentPage,
+    setTotalUsersAmount,
+    setUsers,
+    switchPreloader, unfollow,
 } from "./Reducers/users-reducer";
 
 
@@ -15,12 +15,12 @@ export type AllACTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof onChangeHandlerAC> |
     ReturnType<typeof updateNewMessageBodyAC> |
     ReturnType<typeof sendMessageBodyAC> |
-    ReturnType<typeof followAC> |
-    ReturnType<typeof unfollowAC> |
-    ReturnType<typeof setUsersAC> |
-    ReturnType<typeof setCurrentPageAC> |
-    ReturnType<typeof setTotalUsersAmountAC> |
-    ReturnType<typeof switchPreloaderAC>
+    ReturnType<typeof follow> |
+    ReturnType<typeof unfollow> |
+    ReturnType<typeof setUsers> |
+    ReturnType<typeof setCurrentPage> |
+    ReturnType<typeof setTotalUsersAmount> |
+    ReturnType<typeof switchPreloader>
 
 export type mainReducerType = ReturnType<typeof mainReducer>
 

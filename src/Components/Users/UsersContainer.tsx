@@ -1,12 +1,11 @@
 import {connect} from "react-redux";
 import {RootStateType} from "../../index";
-import {Dispatch} from "redux";
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersAmountAC,
-    setUsersAC, switchPreloaderAC,
-    unfollowAC,
+    follow,
+    setCurrentPage,
+    setTotalUsersAmount,
+    setUsers, switchPreloader,
+    unfollow,
     UserType
 } from "../redux/Reducers/users-reducer";
 import React from "react";
@@ -22,14 +21,14 @@ type mapStateToPropsType = {
     isFetching: boolean
 }
 
-type mapDispatchToPropsType = {
+/*type mapDispatchToPropsType = {
     follow: (userID: number) => void
     unfollow: (userID: number) => void
     setUsers: (users: Array<UserType>) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsersAmount: (totalAmount: number) => void
     switchPreloader: (isFetching: boolean) => void
-}
+}*/
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -93,7 +92,7 @@ let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+/*let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     return {
         follow: (userID: number) => {
             dispatch(followAC(userID))
@@ -114,6 +113,13 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
             dispatch(switchPreloaderAC(isFetching))
         }
     }
-}
+}*/
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersAmount,
+    switchPreloader
+})(UsersContainer)
