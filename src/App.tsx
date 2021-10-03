@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Header from './Components/Header/Header';
 import Nav from './Components/Nav/Nav';
 import {Route} from "react-router-dom";
 import {AllACTypes, MainReducerType} from './Components/redux/redux-store';
@@ -9,6 +8,7 @@ import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import Friends from "./Components/Friends/Friends";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
+import HeaderContainer from "./Components/Header/HeaderContainer";
 
 
 type AppPropsType = {
@@ -21,7 +21,7 @@ const App: React.FC<AppPropsType> = (props) => {
 
     return (
         <div className='app-wrapper'>
-            <Header/>
+            <HeaderContainer/>
             <Nav/>
             <div className='app-wrapper-content'>
                 <Route path={'/profile/:userId?'}

@@ -1,12 +1,14 @@
 .header {
     grid-area: h;
-    background-color: rgba(86,113,115,0.65);
-    width: 935px;
-    }
-    .header img {
-      width: 100px;
-        height: 60px;
-        background-color:rgba(86,113,115,0.65);
-    }
+    background-color: rgba(86, 113, 115, 0.65);
+    width: 900px;
+}
 
-    
+.header img {
+    width: 100px;
+    height: 60px;
+}
+
+.authBlock {
+    float: right;
+}

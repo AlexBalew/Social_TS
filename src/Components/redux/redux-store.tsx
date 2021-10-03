@@ -13,6 +13,7 @@ import usersReducer, {
     setUsers,
     switchPreloader, unfollow,
 } from "./Reducers/users-reducer";
+import {setUserDataAC} from "./Reducers/auth-reducer";
 
 
 export type AllACTypes = ReturnType<typeof addPostAC> |
@@ -25,7 +26,8 @@ export type AllACTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof setCurrentPage> |
     ReturnType<typeof setTotalUsersAmount> |
     ReturnType<typeof switchPreloader> |
-    ReturnType<typeof setUserProfile>
+    ReturnType<typeof setUserProfile> |
+    ReturnType<typeof setUserDataAC>
 
 export type MainReducerType = ReturnType<typeof mainReducer>
 
@@ -34,6 +36,7 @@ let mainReducer = combineReducers({
     dialogsPage: dialogsReducer,
     friendsBar: friendsBarReducer,
     usersPage: usersReducer,
+    authSetting: setUserDataAC
 })
 
 let store: Store<MainReducerType, AllACTypes> = createStore(mainReducer)

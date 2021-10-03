@@ -35,7 +35,6 @@ export type ProfilePageType = {
     profile: UserProfileType
 }
 
-
 let initialState: ProfilePageType = {
     newPostText: '',
     posts: [
