@@ -3,6 +3,7 @@ import {UserType} from "../redux/Reducers/users-reducer";
 import s from './Users.module.css'
 import userPhoto from './../../files/images/user-default.png'
 import {NavLink} from "react-router-dom";
+import {follow, unFollow} from "../../API/api";
 
 
 type UsersPropsType = {
@@ -29,7 +30,7 @@ let Users = (props: UsersPropsType) => {
         <div>
             <div>
                 {pages.map(p => <span key={p} className={props.currentPage === p ? s.selected : s.notSelected}
-                                      onClick={(e) => {
+                                      onClick={() => {
                                           props.onPageNumberChange(p)
                                       }}>{p} </span>)}
             </div>
@@ -45,10 +46,20 @@ let Users = (props: UsersPropsType) => {
                         <div>
                             {u.followed
                                 ? <button onClick={() => {
-                                    props.unfollow(u.id)
+                                   unFollow(u.id)
+                                        .then(data => {
+                                            if(data.resultCode === 0) {
+                                                props.unfollow(u.id)
+                                            }
+                                        });
                                 }}>Unfollow</button>
                                 : <button onClick={() => {
-                                    props.follow(u.id)
+                                    follow(u.id)
+                                        .then(data => {
+                                            if(data.resultCode === 0) {
+                                                props.follow(u.id)
+                                            }
+                                        });
                                 }}>Follow</button>}
                         </div>
                     </span>

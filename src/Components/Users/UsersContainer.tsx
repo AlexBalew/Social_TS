@@ -9,9 +9,9 @@ import {
     UserType
 } from "../redux/Reducers/users-reducer";
 import React from "react";
-import axios from "axios";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
+import {getUsers} from "../../API/api";
 
 type mapStateToPropsType = {
     users: Array<UserType>
@@ -30,7 +30,7 @@ type mapStateToPropsType = {
     switchPreloader: (isFetching: boolean) => void
 }*/
 
-type UsersPropsType = {
+export type UsersPropsType = {
     users: Array<UserType>
     unfollow: (userID: number) => void
     setUsers: (users: Array<UserType>) => void
@@ -48,10 +48,10 @@ class UsersContainer extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.switchPreloader(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
+        getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.switchPreloader(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
                 this.props.setTotalUsersAmount(this.props.totalUsersAmount)
             });
     }
@@ -59,10 +59,10 @@ class UsersContainer extends React.Component<UsersPropsType> {
     onPageNumberChange = (p: number) => {
         this.props.setCurrentPage(p)
         this.props.switchPreloader(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
-            .then(response => {
+        getUsers(p, this.props.pageSize)
+            .then(data => {
                 this.props.switchPreloader(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             });
     }
 

@@ -13,7 +13,7 @@ import usersReducer, {
     setUsers,
     switchPreloader, unfollow,
 } from "./Reducers/users-reducer";
-import {setUserDataAC} from "./Reducers/auth-reducer";
+import authReducer, {setUserDataAC} from "./Reducers/auth-reducer";
 
 
 export type AllACTypes = ReturnType<typeof addPostAC> |
@@ -36,9 +36,12 @@ let mainReducer = combineReducers({
     dialogsPage: dialogsReducer,
     friendsBar: friendsBarReducer,
     usersPage: usersReducer,
-    authSetting: setUserDataAC
+    authSetting: authReducer
 })
 
 let store: Store<MainReducerType, AllACTypes> = createStore(mainReducer)
+
+// @ts-ignore
+window.store = store
 
 export default store

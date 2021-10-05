@@ -1,9 +1,10 @@
 import React from 'react';
 import Header from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
 import {AuthUserType, setUserDataAC} from "../redux/Reducers/auth-reducer";
 import {Nullable} from "../../types";
+import {MainReducerType} from "../redux/redux-store";
+import {authMe} from "../../API/api";
 
 type AuthPropsType = MSTPType & MDTPType
 
@@ -19,10 +20,10 @@ type MDTPType = {
 class HeaderContainer extends React.Component<AuthPropsType> {
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    this.props.setUserDataAC(response.data.data)
+        authMe()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    this.props.setUserDataAC(data.data)
                 }
             });
     }
@@ -34,9 +35,9 @@ class HeaderContainer extends React.Component<AuthPropsType> {
     }
 }
 
-const mapStateToProps = (state: MSTPType) => ({
-    isAuth: state.isAuth,
-    login: state.login,
+const mapStateToProps = (state: MainReducerType): MSTPType => ({
+    isAuth: state.authSetting.isAuth,
+    login: state.authSetting.login,
 })
 
 
