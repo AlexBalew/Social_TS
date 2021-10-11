@@ -1,8 +1,8 @@
 import {DialogsPageType, sendMessageBodyAC, updateNewMessageBodyAC} from "../redux/Reducers/dialogs-reducer"
 import Dialogs from './Dialogs';
 import {connect} from "react-redux";
-import {RootStateType} from "../../index";
 import { Dispatch } from "redux";
+import {MainReducerType} from "../redux/redux-store";
 
 export type mapDispatchToPropsType = {
     updateNewMessageBody: (body: string) => void
@@ -11,14 +11,14 @@ export type mapDispatchToPropsType = {
 
 export type mapStateToPropsType = {
     dialogsPage: DialogsPageType
+    isAuth: boolean
 }
 
-export type DialogsPropsType = mapStateToPropsType | mapDispatchToPropsType
 
-
-let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
+let mapStateToProps = (state: MainReducerType): mapStateToPropsType => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth: state.authSetting.isAuth
     }
 }
 

@@ -1,6 +1,7 @@
 import {AllACTypes} from "../redux-store";
 import {Nullable} from '../../../types';
 import {showUser} from "../../../API/api";
+import {Dispatch} from "redux";
 
 
 export type PostType = {
@@ -91,7 +92,7 @@ export const setUserProfile = (profile: UserProfileType) => {
 }
 
 
-export const showUserTC = (userId: number) => (dispatch: any) => {//типизировать
+export const showUserTC = (userId: number) => (dispatch: Dispatch) => {//типизировать
     showUser(userId)
         .then(data => {
             dispatch(setUserProfile(data))

@@ -1,5 +1,6 @@
 import {follow, getUsers, unFollow} from "../../../API/api";
 import {AllACTypes} from "../redux-store";
+import {Dispatch} from "redux";
 
 export type UserType = {
     name: string
@@ -119,7 +120,7 @@ export const followedUsersIdAC = (id: number, isFetching: boolean) => {
 }
 
 
-export const getUsersTC = (currentPage: any, pageSize: any) => (dispatch: any) => { //типизировать
+export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
     dispatch(switchPreloader(true))
     getUsers(currentPage, pageSize)
         .then(data => {
@@ -129,7 +130,7 @@ export const getUsersTC = (currentPage: any, pageSize: any) => (dispatch: any) =
         });
 }
 
-export const followUserTC = (userId: number) => (dispatch: any) => {//типизировать
+export const followUserTC = (userId: number) => (dispatch: Dispatch) => {
     dispatch(followedUsersIdAC(userId, true))
     follow(userId)
         .then(data => {
@@ -140,7 +141,7 @@ export const followUserTC = (userId: number) => (dispatch: any) => {//типиз
         });
 }
 
-export const unFollowUserTC = (userId: number) => (dispatch: any) => {//типизировать
+export const unFollowUserTC = (userId: number) => (dispatch: Dispatch) => {
     dispatch(followedUsersIdAC(userId, true))
     unFollow(userId)
         .then(data => {

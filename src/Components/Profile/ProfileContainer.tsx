@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {showUserTC, UserProfileType} from "../redux/Reducers/profile-reducer";
 import {MainReducerType} from "../redux/redux-store";
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 
 type PathParamsType = {
     userId: string
@@ -13,6 +13,7 @@ type MainPropsType = RouteComponentProps<PathParamsType> & ProfileContainerProps
 
 type MSTPType = {
     profile: UserProfileType
+    isAuth: boolean
 }
 
 type MDTPType = {
@@ -33,6 +34,9 @@ class ProfileContainer extends React.Component<MainPropsType> {
     }
 
     render() {
+
+        if(!this.props.isAuth) return <Redirect to='/login' />
+
         return (
             <Profile {...this.props} profile={this.props.profile}/>
         )
@@ -40,7 +44,8 @@ class ProfileContainer extends React.Component<MainPropsType> {
 }
 
 let mapStateToProps = (state: MainReducerType): MSTPType => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.authSetting.isAuth
 })
 
 let DataFromURLContainerComp = withRouter(ProfileContainer)
