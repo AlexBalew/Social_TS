@@ -1,5 +1,6 @@
 import {AllACTypes} from "../redux-store";
 import {Nullable} from "../../../types";
+import {authMe} from "../../../API/api";
 
 export type AuthUserType = {
     email: Nullable<string>
@@ -35,4 +36,13 @@ export const setUserDataAC = (data: AuthUserType) => {
         type: 'SET_USER_DATA',
         data,
     } as const
+}
+
+export const getAuthUserDataTC = () => (dispatch: any) => {//типизировать
+    authMe()
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setUserDataAC(data.data))
+            }
+        });
 }

@@ -1,13 +1,12 @@
 import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {setUserProfile, UserProfileType} from "../redux/Reducers/profile-reducer";
+import {showUserTC, UserProfileType} from "../redux/Reducers/profile-reducer";
 import {MainReducerType} from "../redux/redux-store";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {showUser} from "../../API/api";
 
 type PathParamsType = {
-    userId: string | undefined
+    userId: string
 }
 
 type MainPropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
@@ -17,7 +16,7 @@ type MSTPType = {
 }
 
 type MDTPType = {
-    setUserProfile: (profile: UserProfileType) => void
+    showUserTC: (userId: number) => void
 }
 
 type ProfileContainerPropsType = MSTPType & MDTPType
@@ -25,14 +24,12 @@ type ProfileContainerPropsType = MSTPType & MDTPType
 class ProfileContainer extends React.Component<MainPropsType> {
 
     componentDidMount() {
-        let userId = this.props.match.params.userId
+        let userId: string | undefined = this.props.match.params.userId
+        console.log(userId)
         if (!userId) {
-            userId = '19866'
+            userId = "2"
         }
-        showUser(userId)
-            .then(data => {
-                this.props.setUserProfile(data)
-            });
+        this.props.showUserTC(+userId)
     }
 
     render() {
@@ -50,6 +47,6 @@ let DataFromURLContainerComp = withRouter(ProfileContainer)
 
 export default connect<MSTPType, MDTPType, {}, MainReducerType>(
     mapStateToProps, {
-        setUserProfile,
+        showUserTC
     }
 )(DataFromURLContainerComp);

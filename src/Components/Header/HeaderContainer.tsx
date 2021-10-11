@@ -1,10 +1,9 @@
 import React from 'react';
 import Header from "./Header";
 import {connect} from "react-redux";
-import {AuthUserType, setUserDataAC} from "../redux/Reducers/auth-reducer";
+import {getAuthUserDataTC, AuthUserType, setUserDataAC} from "../redux/Reducers/auth-reducer";
 import {Nullable} from "../../types";
 import {MainReducerType} from "../redux/redux-store";
-import {authMe} from "../../API/api";
 
 type AuthPropsType = MSTPType & MDTPType
 
@@ -15,17 +14,13 @@ type MSTPType = {
 
 type MDTPType = {
     setUserDataAC: (data: AuthUserType) => void
+    AuthMeTC: () => void
 }
 
 class HeaderContainer extends React.Component<AuthPropsType> {
 
     componentDidMount() {
-        authMe()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    this.props.setUserDataAC(data.data)
-                }
-            });
+        this.props.AuthMeTC()
     }
 
     render() {
@@ -41,4 +36,4 @@ const mapStateToProps = (state: MainReducerType): MSTPType => ({
 })
 
 
-export default connect(mapStateToProps, {setUserDataAC})(HeaderContainer);
+export default connect(mapStateToProps, {setUserDataAC, AuthMeTC: getAuthUserDataTC})(HeaderContainer);

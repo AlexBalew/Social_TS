@@ -29,7 +29,7 @@ export const follow = (id: number) => {
         .then(res => res.data)
 }
 
-export const showUser = (userId: string) => {
+export const showUser = (userId: number) => {
     return baseAxiosSettings.get<UserProfileType>(`profile/` + userId)
         .then(res => res.data)
 }

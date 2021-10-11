@@ -2,12 +2,10 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Header.module.css';
 import {Nullable} from "../../types";
-import {AuthUserType} from "../redux/Reducers/auth-reducer";
 
 type PropsType = {
     isAuth: boolean
     login: Nullable<string>
-    setUserDataAC: (data: AuthUserType) => void
 }
 
 const Header = (props: PropsType) => {
