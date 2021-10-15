@@ -1,4 +1,4 @@
-import {addPostAC, onChangeHandlerAC, PostType} from "../../redux/Reducers/profile-reducer";
+import {addPostAC, onChangeHandlerAC, PostType} from "../../../redux/Reducers/profile-reducer";
 import MyPosts from "./MyPosts";
 import { connect } from 'react-redux';
 import {RootStateType} from "../../../index";

@@ -1,13 +1,13 @@
 import React from 'react';
 import { v1 } from 'uuid';
-import { FriendType } from '../redux/Reducers/friendsBar-reducer';
+import { FriendType } from '../../redux/Reducers/friendsBar-reducer';
 import {Friend} from "./Friend";
 import s from './Friends.module.css'
 import {Store} from "redux";
-import {AllACTypes, MainReducerType} from "../redux/redux-store";
+import {AllACTypes, APPStateType} from "../../redux/redux-store";
 
 export type FriendsPropsType = {
-    store: Store<MainReducerType, AllACTypes>
+    store: Store<APPStateType, AllACTypes>
 }
 
 const Friends = (props: FriendsPropsType) =>{

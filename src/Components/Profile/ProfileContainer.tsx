@@ -1,9 +1,11 @@
 import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {showUserTC, UserProfileType} from "../redux/Reducers/profile-reducer";
-import {MainReducerType} from "../redux/redux-store";
-import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import {showUserTC, UserProfileType} from "../../redux/Reducers/profile-reducer";
+import {APPStateType} from "../../redux/redux-store";
+import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {withAuthRedirectComponent} from "../../hoc/withAuthRedirectComponent";
+import {compose} from "redux";
 
 type PathParamsType = {
     userId: string
@@ -13,7 +15,6 @@ type MainPropsType = RouteComponentProps<PathParamsType> & ProfileContainerProps
 
 type MSTPType = {
     profile: UserProfileType
-    isAuth: boolean
 }
 
 type MDTPType = {
@@ -35,23 +36,32 @@ class ProfileContainer extends React.Component<MainPropsType> {
 
     render() {
 
-        if(!this.props.isAuth) return <Redirect to='/login' />
-
         return (
             <Profile {...this.props} profile={this.props.profile}/>
         )
     }
 }
 
-let mapStateToProps = (state: MainReducerType): MSTPType => ({
-    profile: state.profilePage.profile,
-    isAuth: state.authSetting.isAuth
+let mapStateToProps = (state: APPStateType): MSTPType => ({
+    profile: state.profilePage.profile
 })
 
-let DataFromURLContainerComp = withRouter(ProfileContainer)
+export default compose<React.ComponentType>(
+    connect<MSTPType, MDTPType, {}, APPStateType>(
+        mapStateToProps, {showUserTC}),
+    withRouter,
+    withAuthRedirectComponent
+)(ProfileContainer)
 
-export default connect<MSTPType, MDTPType, {}, MainReducerType>(
+/*
+let AuthRedirectComponent = withAuthRedirectComponent(ProfileContainer)
+
+
+let DataFromURLContainerComp = withRouter(AuthRedirectComponent)
+
+export default connect<MSTPType, MDTPType, {}, APPStateType>(
     mapStateToProps, {
         showUserTC
     }
 )(DataFromURLContainerComp);
+*/

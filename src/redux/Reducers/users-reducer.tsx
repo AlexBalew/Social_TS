@@ -1,4 +1,4 @@
-import {follow, getUsers, unFollow} from "../../../API/api";
+import {follow, getUsers, unFollow} from "../../API/api";
 import {AllACTypes} from "../redux-store";
 import {Dispatch} from "redux";
 

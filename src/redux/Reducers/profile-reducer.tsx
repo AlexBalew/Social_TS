@@ -1,6 +1,6 @@
 import {AllACTypes} from "../redux-store";
-import {Nullable} from '../../../types';
-import {showUser} from "../../../API/api";
+import {Nullable} from '../../types';
+import {showUser} from "../../API/api";
 import {Dispatch} from "redux";
 
 

@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
 import {v1} from 'uuid';
-import {PostType} from "../../redux/Reducers/profile-reducer";
+import {PostType} from "../../../redux/Reducers/profile-reducer";
 
 
 type MyPostsPropsType = {

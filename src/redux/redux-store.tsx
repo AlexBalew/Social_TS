@@ -31,7 +31,7 @@ export type AllACTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof setUserDataAC> |
     ReturnType<typeof followedUsersIdAC>
 
-export type MainReducerType = ReturnType<typeof mainReducer>
+export type APPStateType = ReturnType<typeof mainReducer>
 
 let mainReducer = combineReducers({
     profilePage: profileReducer,
@@ -41,7 +41,7 @@ let mainReducer = combineReducers({
     authSetting: authReducer
 })
 
-let store: Store<MainReducerType, AllACTypes> = createStore(mainReducer, applyMiddleware(thunkMiddleware))
+let store: Store<APPStateType, AllACTypes> = createStore(mainReducer, applyMiddleware(thunkMiddleware))
 
 // @ts-ignore
 window.store = store

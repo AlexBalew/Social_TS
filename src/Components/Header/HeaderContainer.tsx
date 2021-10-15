@@ -1,9 +1,9 @@
 import React from 'react';
 import Header from "./Header";
 import {connect} from "react-redux";
-import {getAuthUserDataTC, AuthUserType, setUserDataAC} from "../redux/Reducers/auth-reducer";
+import {getAuthUserDataTC, AuthUserType, setUserDataAC} from "../../redux/Reducers/auth-reducer";
 import {Nullable} from "../../types";
-import {MainReducerType} from "../redux/redux-store";
+import {APPStateType} from "../../redux/redux-store";
 
 type AuthPropsType = MSTPType & MDTPType
 
@@ -30,7 +30,7 @@ class HeaderContainer extends React.Component<AuthPropsType> {
     }
 }
 
-const mapStateToProps = (state: MainReducerType): MSTPType => ({
+const mapStateToProps = (state: APPStateType): MSTPType => ({
     isAuth: state.authSetting.isAuth,
     login: state.authSetting.login,
 })

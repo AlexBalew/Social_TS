@@ -7,10 +7,12 @@ import {
     followUserTC,
     unFollowUserTC,
     UserType
-} from "../redux/Reducers/users-reducer";
+} from "../../redux/Reducers/users-reducer";
 import React from "react";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
+import {withAuthRedirectComponent} from "../../hoc/withAuthRedirectComponent";
+import {compose} from "redux";
 
 type mapStateToPropsType = {
     users: Array<UserType>
@@ -51,7 +53,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
     render() {
 
         return <>
-            {this.props.isFetching ? <Preloader /> : ''}
+            {this.props.isFetching ? <Preloader/> : ''}
             <Users totalUsersAmount={this.props.totalUsersAmount}
                    pageSize={this.props.pageSize}
                    currentPage={this.props.currentPage}
@@ -82,6 +84,21 @@ let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
     }
 }
 
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        follow: followAC,
+        unfollow: unFollowAC,
+        setCurrentPage,
+        followedUsersIdAC,
+        getUsersTC,
+        followUserTC,
+        unFollowUserTC
+    }),
+    withAuthRedirectComponent
+)(UsersContainer)
+
+/*
+let withRedirect = withAuthRedirectComponent(UsersContainer)
 
 export default connect(mapStateToProps, {
     follow: followAC,
@@ -91,4 +108,4 @@ export default connect(mapStateToProps, {
     getUsersTC,
     followUserTC,
     unFollowUserTC
-})(UsersContainer)
+})(withRedirect)*/

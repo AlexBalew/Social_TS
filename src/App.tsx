@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Nav from './Components/Nav/Nav';
 import {Route} from "react-router-dom";
-import {AllACTypes, MainReducerType} from './Components/redux/redux-store';
+import {AllACTypes, APPStateType} from './redux/redux-store';
 import {Store} from "redux";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import Friends from "./Components/Friends/Friends";
@@ -14,7 +14,7 @@ import {Login} from "./Components/Login/Login";
 
 type AppPropsType = {
     dispatch: (action: AllACTypes) => void
-    store: Store<MainReducerType, AllACTypes>
+    store: Store<APPStateType, AllACTypes>
 }
 
 const App: React.FC<AppPropsType> = (props) => {

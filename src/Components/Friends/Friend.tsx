@@ -1,5 +1,5 @@
 import React from 'react';
-import {FriendType} from "../redux/Reducers/friendsBar-reducer"
+import {FriendType} from "../../redux/Reducers/friendsBar-reducer"
 import s from './Friends.module.css'
 
 export function Friend(props: FriendType) {
