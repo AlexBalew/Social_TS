@@ -29,7 +29,7 @@ class ProfileContainer extends React.Component<MainPropsType> {
         let userId: string | undefined = this.props.match.params.userId
         console.log(userId)
         if (!userId) {
-            userId = "2"
+            userId = "19866"
         }
         this.props.showUserTC(+userId)
     }
