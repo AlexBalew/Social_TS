@@ -1,9 +1,11 @@
 import React from "react";
 
-type LoginPropsType = {
-
-}
+type LoginPropsType = {}
 
 export const Login = (props: LoginPropsType) => {
-    return <h2>login</h2>
+    return (
+        <>
+            <h2>login</h2>
+        </>
+    )
 }

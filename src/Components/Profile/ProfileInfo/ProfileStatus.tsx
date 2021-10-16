@@ -3,6 +3,7 @@ import s from './ProfileInfo.module.css'
 
 type ProfileStatusPropsType = {
     status: string
+    updateUserStatusTC: (status: string) => void
 }
 
 function ProfileStatus(props: ProfileStatusPropsType) {
@@ -18,18 +19,16 @@ function ProfileStatus(props: ProfileStatusPropsType) {
 
     const onKeyPressStatusHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            let newStatus = e.currentTarget.value
-            setStatus(newStatus)
             setEditMode(false)
+            props.updateUserStatusTC(status)
         }
-        return {status}
     }
 
-    const setEditModeHandler = () => {
+    const setEditModeOnClick = () => {
         setEditMode(true)
     }
 
-    const setViewModeHandler = () => {
+    const setViewMode = () => {
         setEditMode(false)
     }
 
@@ -38,12 +37,13 @@ function ProfileStatus(props: ProfileStatusPropsType) {
             {editMode ?
                 <input value={status}
                        onChange={setStatusOnChangeHandler}
-                       onBlur={setViewModeHandler}
+                       onBlur={setViewMode}
                        onKeyPress={onKeyPressStatusHandler}
                        autoFocus/>
                 :
-                <span onDoubleClick={setEditModeHandler}>{status ? status : props.status}</span>
+                <span onDoubleClick={setEditModeOnClick}>{status ? status : props.status}</span>
             }
+            {!status && !props.status && <span onDoubleClick={setEditModeOnClick}>double click me</span>}
         </div>
     )
 

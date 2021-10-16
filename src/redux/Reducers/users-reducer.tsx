@@ -57,7 +57,9 @@ const usersReducer = (state: UsersPageType = initialState, action: AllACTypes): 
         case 'SWITCH_IS_FOLLOW': {
             return {
                 ...state,
-                followedUsersId: action.isFetching ? [...state.followedUsersId, action.id] : state.followedUsersId.filter(id => id !== action.id)
+                followedUsersId: action.isFetching
+                    ? [...state.followedUsersId, action.id]
+                    : state.followedUsersId.filter(id => id !== action.id)
             }
         }
         default:

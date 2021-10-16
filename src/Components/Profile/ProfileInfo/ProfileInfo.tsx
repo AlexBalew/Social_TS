@@ -7,16 +7,18 @@ import ProfileStatus from './ProfileStatus';
 
 type PropsType = {
     profile: UserProfileType
+    status: string
+    updateUserStatusTC: (status: string) => void
 }
 
 const ProfileInfo = (props: PropsType) => {
+
     const isProfileEmpty = (profile: {} | UserProfileType): boolean => {
         for (const key in profile) {
             if (Object.prototype.hasOwnProperty.call(profile, key)) {
                 return false;
             }
         }
-
         return true;
     };
 
@@ -26,16 +28,10 @@ const ProfileInfo = (props: PropsType) => {
 
     return (
         <div>
-            <div>
-                <img
-                    src='https://www.imagesystems.com.mt/wp-content/uploads/2019/10/Who-we-are-Image-1-1-768x657.png'
-                    alt={'main background'}>
-                </img>
-            </div>
             <div className={classes.descriptionBlock}>
                 <img src={props.profile.photos.small !== null ? props.profile.photos.small : userPhoto} alt={'users avatar'}/>
                 <div>{props.profile.fullName}</div>
-                <span>My status:</span> <ProfileStatus status={'In a good mood'}/>
+                <span>My status:</span> <ProfileStatus status={props.status} updateUserStatusTC={props.updateUserStatusTC}/>
             </div>
         </div>
     )

@@ -2,7 +2,7 @@ import {applyMiddleware, combineReducers, createStore, Store} from "redux";
 import profileReducer, {
     addPostAC,
     onChangeHandlerAC,
-    setUserProfile,
+    setUserProfile, setUserStatus,
 } from "./Reducers/profile-reducer";
 import dialogsReducer, {sendMessageBodyAC, updateNewMessageBodyAC} from "./Reducers/dialogs-reducer";
 import friendsBarReducer from "./Reducers/friendsBar-reducer";
@@ -29,7 +29,8 @@ export type AllACTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof switchPreloader> |
     ReturnType<typeof setUserProfile> |
     ReturnType<typeof setUserDataAC> |
-    ReturnType<typeof followedUsersIdAC>
+    ReturnType<typeof followedUsersIdAC> |
+    ReturnType<typeof setUserStatus>
 
 export type APPStateType = ReturnType<typeof mainReducer>
 
