@@ -43,7 +43,7 @@ function ProfileStatus(props: ProfileStatusPropsType) {
                 :
                 <span onDoubleClick={setEditModeOnClick}>{status ? status : props.status}</span>
             }
-            {!status && !props.status && <span onDoubleClick={setEditModeOnClick}>double click me</span>}
+            {!status && !props.status && <span onDoubleClick={setEditModeOnClick}>Status is empty</span>}
         </div>
     )
 
