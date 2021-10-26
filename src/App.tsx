@@ -2,10 +2,7 @@ import React from 'react';
 import './App.css';
 import Nav from './Components/Nav/Nav';
 import {Route} from "react-router-dom";
-import {AllACType, APPStateType} from './redux/redux-store';
-import {Store} from "redux";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
-import Friends from "./Components/Friends/Friends";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
@@ -13,12 +10,7 @@ import {Login} from "./Components/Login/Login";
 import {Settings} from "./Components/Settings/Settings";
 
 
-type AppPropsType = {
-    dispatch: (action: AllACType) => void
-    store: Store<APPStateType, AllACType>
-}
-
-const App: React.FC<AppPropsType> = (props) => {
+const App: React.FC = () => {
 
 
     return (
@@ -30,8 +22,8 @@ const App: React.FC<AppPropsType> = (props) => {
                        render={() => <ProfileContainer/>}/>
                 <Route path={'/dialogs'}
                        render={() => <DialogsContainer/>}/>
-                <Route path={'/friends'}
-                       render={() => <Friends store={props.store}/>}/>
+                {/*<Route path={'/friends'}
+                       render={() => <Friends />}/>*/}
                 <Route path={'/users'}
                        render={() => <UsersContainer/>}/>
                 <Route path={'/login'}

@@ -1,36 +1,29 @@
-import {addPostAC, onChangeHandlerAC, PostType} from "../../../redux/Reducers/profile-reducer";
+import {addPostAC, PostType} from "../../../redux/Reducers/profile-reducer";
 import MyPosts from "./MyPosts";
-import { connect } from 'react-redux';
-import {RootStateType} from "../../../index";
-import { Dispatch } from 'redux';
+import {connect} from 'react-redux';
+import {Dispatch} from 'redux';
+import {APPStateType} from "../../../redux/redux-store";
 
 
 export type mapDispatchToPropsType = {
-    updateNewPostText: (text: string) => void
-    addPost: () => void
+    addPost: (newPost: string) => void
 }
 
 export type mapStateToPropsType = {
     posts: Array<PostType>
-    newPostText: string
 }
 
 
-const mapStateToProps = (state: RootStateType): mapStateToPropsType => {
+const mapStateToProps = (state: APPStateType): mapStateToPropsType => {
     return {
         posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     return {
-        updateNewPostText: (text: string) => {
-            let action = onChangeHandlerAC(text)
-            dispatch(action)
-        },
-        addPost: () => {
-            let action = addPostAC()
+        addPost: (newPost: string) => {
+            let action = addPostAC(newPost)
             dispatch(action)
         }
     }

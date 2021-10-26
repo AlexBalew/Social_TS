@@ -1,5 +1,5 @@
-import {applyMiddleware, combineReducers, createStore, Store} from "redux";
-import profileReducer, {addPostAC, onChangeHandlerAC, setUserProfile, setUserStatus,} from "./Reducers/profile-reducer";
+import {applyMiddleware, combineReducers, createStore} from "redux";
+import profileReducer, {addPostAC, setUserProfile, setUserStatus,} from "./Reducers/profile-reducer";
 import dialogsReducer, {sendNewDialogMessageAC} from "./Reducers/dialogs-reducer";
 import friendsBarReducer from "./Reducers/friendsBar-reducer";
 import usersReducer, {
@@ -18,7 +18,6 @@ import {reducer as formReducer} from 'redux-form'
 
 
 export type AllACType = ReturnType<typeof addPostAC> |
-    ReturnType<typeof onChangeHandlerAC> |
     ReturnType<typeof sendNewDialogMessageAC> |
     ReturnType<typeof followAC> |
     ReturnType<typeof unFollowAC> |
@@ -43,7 +42,10 @@ let mainReducer = combineReducers({
     form: formReducer
 })
 
-let store: Store<APPStateType, AllACType> = createStore(mainReducer, applyMiddleware(thunkMiddleware))
+// let store: Store<APPStateType, AllACType> = createStore(mainReducer, applyMiddleware(thunkMiddleware))
+let store = createStore(mainReducer, applyMiddleware(thunkMiddleware))
+//export type AppStoreType = typeof store
+
 
 // @ts-ignore
 window.store = store

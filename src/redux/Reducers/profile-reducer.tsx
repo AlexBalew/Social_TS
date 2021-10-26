@@ -49,13 +49,11 @@ export type UpdateUserPhotoType = {
 
 export type ProfilePageType = {
     posts: Array<PostType>
-    newPostText: string
     profile: UserProfileType
     status: string
 }
 
 let initialState: ProfilePageType = {
-    newPostText: '',
     posts: [
         {id: 1, message: 'Hi, how are you?', likesCounter: 15},
         {id: 2, message: 'Fine, thanks', likesCounter: 25},
@@ -71,13 +69,10 @@ const profileReducer = (state: ProfilePageType = initialState, action: AllACType
         case 'ADD_POST': {
             let newPost: PostType = {
                 id: 5,
-                message: state.newPostText,
+                message: action.newPost,
                 likesCounter: 0
             }
-            return {...state, posts: [...state.posts, newPost], newPostText: ''};
-        }
-        case 'UPDATE_NEW_POST_TEXT': {
-            return {...state, newPostText: action.newText}
+            return {...state, posts: [...state.posts, newPost]};
         }
         case 'SET_USERS-PROFILE': {
             return {...state, profile: action.profile }
@@ -93,16 +88,10 @@ const profileReducer = (state: ProfilePageType = initialState, action: AllACType
 export default profileReducer;
 
 
-export const addPostAC = () => {
+export const addPostAC = (newPost: string) => {
     return {
         type: 'ADD_POST',
-    } as const
-}
-
-export const onChangeHandlerAC = (text: string) => {
-    return {
-        type: 'UPDATE_NEW_POST_TEXT',
-        newText: text
+        newPost
     } as const
 }
 

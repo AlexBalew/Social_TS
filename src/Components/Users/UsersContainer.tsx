@@ -1,5 +1,4 @@
 import {connect} from "react-redux";
-import {RootStateType} from "../../index";
 import {
     followAC, followedUsersIdAC, getUsersTC,
     setCurrentPage,
@@ -13,6 +12,7 @@ import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
 import {withAuthRedirectComponent} from "../../hoc/withAuthRedirectComponent";
 import {compose} from "redux";
+import {APPStateType} from "../../redux/redux-store";
 
 type mapStateToPropsType = {
     users: Array<UserType>
@@ -80,7 +80,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
     }
 }
 
-let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
+let mapStateToProps = (state: APPStateType): mapStateToPropsType => {
 
     return {
         users: state.usersPage.users,
