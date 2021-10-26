@@ -1,4 +1,4 @@
-import {AllACTypes} from "../redux-store";
+import {AllACType} from "../redux-store";
 import {Nullable} from "../../types";
 import {authMe} from "../../API/api";
 import {Dispatch} from "redux";
@@ -17,7 +17,7 @@ let initialState: AuthUserType = {
     isAuth: false
 }
 
-const authReducer = (state: AuthUserType = initialState, action: AllACTypes): AuthUserType => {
+const authReducer = (state: AuthUserType = initialState, action: AllACType): AuthUserType => {
 
     switch (action.type) {
         case 'SET_USER_DATA': {

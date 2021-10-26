@@ -8,7 +8,7 @@ import dialogsReducer, {sendMessageBodyAC, updateNewMessageBodyAC} from "./Reduc
 import friendsBarReducer from "./Reducers/friendsBar-reducer";
 import usersReducer, {
     followAC, followedUsersIdAC,
-    setCurrentPage,
+    setCurrentPage, setFilterAC,
     setTotalUsersAmount,
     setUsers,
     switchPreloader, unFollowAC,
@@ -17,7 +17,7 @@ import authReducer, {setUserDataAC} from "./Reducers/auth-reducer";
 import thunkMiddleware from 'redux-thunk'
 
 
-export type AllACTypes = ReturnType<typeof addPostAC> |
+export type AllACType = ReturnType<typeof addPostAC> |
     ReturnType<typeof onChangeHandlerAC> |
     ReturnType<typeof updateNewMessageBodyAC> |
     ReturnType<typeof sendMessageBodyAC> |
@@ -30,7 +30,8 @@ export type AllACTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof setUserProfile> |
     ReturnType<typeof setUserDataAC> |
     ReturnType<typeof followedUsersIdAC> |
-    ReturnType<typeof setUserStatus>
+    ReturnType<typeof setUserStatus> |
+    ReturnType<typeof setFilterAC>
 
 export type APPStateType = ReturnType<typeof mainReducer>
 
@@ -42,7 +43,7 @@ let mainReducer = combineReducers({
     authSetting: authReducer
 })
 
-let store: Store<APPStateType, AllACTypes> = createStore(mainReducer, applyMiddleware(thunkMiddleware))
+let store: Store<APPStateType, AllACType> = createStore(mainReducer, applyMiddleware(thunkMiddleware))
 
 // @ts-ignore
 window.store = store

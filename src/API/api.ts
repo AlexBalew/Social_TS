@@ -10,8 +10,8 @@ const baseAxiosSettings = axios.create({
     },
 })
 
-export const getUsers = (currentPage: number, pageSize: number) => {
-    return baseAxiosSettings.get(`users?page=${currentPage}&count=${pageSize}`)
+export const getUsers = (currentPage: number, pageSize: number, term: string = '', friend: null | boolean = null) => {
+    return baseAxiosSettings.get(`users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? '' : `${friend}`))
         .then(res => res.data)
 }
 

@@ -6,7 +6,7 @@ import {
     unFollowAC,
     followUserTC,
     unFollowUserTC,
-    UserType
+    UserType, FilterFormType
 } from "../../redux/Reducers/users-reducer";
 import React from "react";
 import Users from "./Users";
@@ -21,6 +21,7 @@ type mapStateToPropsType = {
     currentPage: number
     isFetching: boolean
     followedUsersId: number[]
+    filter: FilterFormType
 }
 
 export type UsersPropsType = {
@@ -34,20 +35,27 @@ export type UsersPropsType = {
     isFetching: boolean
     followedUsersIdAC: (id: number, isFetching: boolean) => void
     followedUsersId: number[]
-    getUsersTC: (currentPage: any, pageSize: any) => void
+    getUsersTC: (currentPage: number, pageSize: number, filter: FilterFormType) => void
     followUserTC: (userId: number, isFetching: boolean) => void
     unFollowUserTC: (userId: number, isFetching: boolean) => void
+    filter: FilterFormType
 }
 
 class UsersContainer extends React.Component<UsersPropsType> {
 
     componentDidMount() {
-        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize, this.props.filter)
     }
 
     onPageNumberChange = (p: number) => {
+        const {pageSize, filter, currentPage} = this.props
         this.props.setCurrentPage(p)
-        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
+        this.props.getUsersTC(currentPage, pageSize, filter)
+    }
+
+    onFilterChanged = (filter: FilterFormType) => {
+        const {pageSize} = this.props
+        this.props.getUsersTC(1, pageSize, filter)
     }
 
     render() {
@@ -66,7 +74,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
                    isFetching={this.props.isFetching}
                    followUserTC={this.props.followUserTC}
                    unFollowUserTC={this.props.unFollowUserTC}
-
+                   onFilterChanged={this.onFilterChanged}
             />
         </>
     }
@@ -81,6 +89,7 @@ let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         followedUsersId: state.usersPage.followedUsersId,
+        filter: state.usersPage.filter
     }
 }
 

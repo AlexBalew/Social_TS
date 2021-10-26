@@ -1,9 +1,9 @@
 import React from "react";
-import {UserType} from "../../redux/Reducers/users-reducer";
+import {FilterFormType, UserType} from "../../redux/Reducers/users-reducer";
 import s from './Users.module.css'
 import userPhoto from './../../files/images/user-default.png'
 import {NavLink} from "react-router-dom";
-
+import {UsersSearchForm} from "./UsersSearchForm";
 
 
 type UsersPropsType = {
@@ -19,6 +19,7 @@ type UsersPropsType = {
     isFetching: boolean
     followUserTC: (userId: number, isFetching: boolean) => void
     unFollowUserTC: (userId: number, isFetching: boolean) => void
+    onFilterChanged: (filter: FilterFormType) => void
 }
 
 let Users = (props: UsersPropsType) => {
@@ -31,6 +32,9 @@ let Users = (props: UsersPropsType) => {
 
     return (
         <div>
+
+            <UsersSearchForm onFilterChanged={props.onFilterChanged} />
+
             <div style={{color: 'red'}}>
                 {pages.map(p => <span key={p} className={props.currentPage === p ? s.selected : s.notSelected}
                                       onClick={() => {

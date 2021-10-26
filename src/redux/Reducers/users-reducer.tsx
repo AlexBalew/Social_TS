@@ -1,5 +1,5 @@
 import {follow, getUsers, unFollow} from "../../API/api";
-import {AllACTypes} from "../redux-store";
+import {AllACType} from "../redux-store";
 import {Dispatch} from "redux";
 
 export type UserType = {
@@ -14,6 +14,8 @@ export type UserType = {
     followed: boolean
 }
 
+export type FilterFormType = typeof initialState.filter
+
 export type UsersPageType = {
     users: Array<UserType>
     pageSize: number
@@ -21,6 +23,11 @@ export type UsersPageType = {
     currentPage: number
     isFetching: boolean
     followedUsersId: number[]
+    filter: {
+        term: string
+        friend: null | boolean
+    }
+
 }
 
 let initialState: UsersPageType = {
@@ -30,9 +37,13 @@ let initialState: UsersPageType = {
     currentPage: 1,
     isFetching: false,
     followedUsersId: [],
+    filter: {
+        term: '',
+        friend: null,
+    }
 }
 
-const usersReducer = (state: UsersPageType = initialState, action: AllACTypes): UsersPageType => {
+const usersReducer = (state: UsersPageType = initialState, action: AllACType): UsersPageType => {
 
     switch (action.type) {
         case 'FOLLOW': {
@@ -42,8 +53,10 @@ const usersReducer = (state: UsersPageType = initialState, action: AllACTypes): 
             return {...state, users: state.users.map(u => u.id === action.userID ? {...u, followed: false} : u)}
         }
         case 'SET_USERS': {
-
             return {...state, users: action.users}
+        }
+        case 'SET_FILTER': {
+            return {...state, filter: action.payload}
         }
         case 'SET_CURRENT_PAGE': {
             return {...state, currentPage: action.currentPage}
@@ -121,10 +134,19 @@ export const followedUsersIdAC = (id: number, isFetching: boolean) => {
     } as const
 }
 
+export const setFilterAC = (filter: FilterFormType) => {
+    return {
+        type: 'SET_FILTER',
+        payload: filter,
+    } as const
+}
 
-export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+
+export const getUsersTC = (currentPage: number, pageSize: number, filter: FilterFormType) => (dispatch: Dispatch) => {
     dispatch(switchPreloader(true))
-    getUsers(currentPage, pageSize)
+    dispatch(setFilterAC(filter))
+    //dispatch(setCurrentPage(currentPage))
+    getUsers(currentPage, pageSize, filter.term, filter.friend)
         .then(data => {
             dispatch(switchPreloader(false))
             dispatch(setUsers(data.items))

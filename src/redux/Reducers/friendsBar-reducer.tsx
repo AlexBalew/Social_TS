@@ -1,4 +1,4 @@
-import {AllACTypes} from "../redux-store";
+import {AllACType} from "../redux-store";
 
 export type FriendType = {
     id: number
@@ -21,7 +21,7 @@ let initialState: FriendsBarType = {
     ],
 }
 
-const friendsBarReducer = (state: FriendsBarType = initialState, action: AllACTypes): FriendsBarType => {
+const friendsBarReducer = (state: FriendsBarType = initialState, action: AllACType): FriendsBarType => {
 
     return state
 }

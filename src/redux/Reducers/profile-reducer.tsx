@@ -1,4 +1,4 @@
-import {AllACTypes} from "../redux-store";
+import {AllACType} from "../redux-store";
 import {Nullable} from '../../types';
 import {profileAPI, showUser} from "../../API/api";
 import {Dispatch} from "redux";
@@ -65,7 +65,7 @@ let initialState: ProfilePageType = {
     status: '',
 }
 
-const profileReducer = (state: ProfilePageType = initialState, action: AllACTypes): ProfilePageType => {
+const profileReducer = (state: ProfilePageType = initialState, action: AllACType): ProfilePageType => {
 
     switch (action.type) {
         case 'ADD_POST': {

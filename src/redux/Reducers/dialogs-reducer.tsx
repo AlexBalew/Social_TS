@@ -1,4 +1,4 @@
-import {AllACTypes} from "../redux-store";
+import {AllACType} from "../redux-store";
 
 export type MessageType = {
     id: number
@@ -38,7 +38,7 @@ let initialState: DialogsPageType = {
     newMessageBody: ''
 }
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: AllACTypes): DialogsPageType => {
+const dialogsReducer = (state: DialogsPageType = initialState, action: AllACType): DialogsPageType => {
 
     switch (action.type) {
         case 'UPDATE_NEW_MESSAGE_BODY': {
