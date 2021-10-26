@@ -1,44 +1,45 @@
-import {ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
+import {reduxForm, Field, InjectedFormProps} from "redux-form";
 
-type LoginPropsType = {}
 
-export const Login = (props: LoginPropsType) => {
+type FormDataType = {
+    login: string
+    password: string
+    rememberMe: boolean
+}
+
+export const Login = () => {
+
+    const onSubmit = (formData: FormDataType) => {
+        console.log(formData)
+    }
+
     return (
         <>
             <h2>login</h2>
-            <Formik
-                initialValues={{ email: '', password: '' }}
-                validate={values => {
-                    const errors = {email:''};
-                    if (!values.email) {
-                        errors.email = 'Required';
-                    } else if (
-                        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                    ) {
-                        errors.email = 'Invalid email address';
-                    }
-                    return errors;
-                }}
-                onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 400);
-                }}
-            >
-                {({ isSubmitting }) => (
-                    <Form>
-                        <Field type="email" name="email" />
-                        <ErrorMessage name="email" component="div" />
-                        <Field type="password" name="password" />
-                        <ErrorMessage name="password" component="div" />
-                        <button type="submit" disabled={isSubmitting}>
-                            Submit
-                        </button>
-                    </Form>
-                )}
-            </Formik>
+            <ReduxLoginForm onSubmit={onSubmit}/>
         </>
+
     )
 }
+
+export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field placeholder={'login'} name={'login'} component={'input'}/>
+            </div>
+            <div>
+                <Field placeholder={'password'} name={'password'} component={'input'}/>
+            </div>
+            <div>
+                <Field component={'input'} name={'remember me'} type={'checkbox'}/> remember me
+            </div>
+            <button>login</button>
+        </form>
+    )
+}
+
+const ReduxLoginForm = reduxForm<FormDataType>({
+    form: 'login'
+})(LoginForm)
