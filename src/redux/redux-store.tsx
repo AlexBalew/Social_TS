@@ -1,27 +1,25 @@
 import {applyMiddleware, combineReducers, createStore, Store} from "redux";
-import profileReducer, {
-    addPostAC,
-    onChangeHandlerAC,
-    setUserProfile, setUserStatus,
-} from "./Reducers/profile-reducer";
-import dialogsReducer, {sendMessageBodyAC, updateNewMessageBodyAC} from "./Reducers/dialogs-reducer";
+import profileReducer, {addPostAC, onChangeHandlerAC, setUserProfile, setUserStatus,} from "./Reducers/profile-reducer";
+import dialogsReducer, {sendNewDialogMessageAC} from "./Reducers/dialogs-reducer";
 import friendsBarReducer from "./Reducers/friendsBar-reducer";
 import usersReducer, {
-    followAC, followedUsersIdAC,
-    setCurrentPage, setFilterAC,
+    followAC,
+    followedUsersIdAC,
+    setCurrentPage,
+    setFilterAC,
     setTotalUsersAmount,
     setUsers,
-    switchPreloader, unFollowAC,
+    switchPreloader,
+    unFollowAC,
 } from "./Reducers/users-reducer";
 import authReducer, {setUserDataAC} from "./Reducers/auth-reducer";
 import thunkMiddleware from 'redux-thunk'
-import { reducer as formReducer } from 'redux-form'
+import {reducer as formReducer} from 'redux-form'
 
 
 export type AllACType = ReturnType<typeof addPostAC> |
     ReturnType<typeof onChangeHandlerAC> |
-    ReturnType<typeof updateNewMessageBodyAC> |
-    ReturnType<typeof sendMessageBodyAC> |
+    ReturnType<typeof sendNewDialogMessageAC> |
     ReturnType<typeof followAC> |
     ReturnType<typeof unFollowAC> |
     ReturnType<typeof setUsers> |
