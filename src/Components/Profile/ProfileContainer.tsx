@@ -6,6 +6,7 @@ import {APPStateType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirectComponent} from "../../hoc/withAuthRedirectComponent";
 import {compose} from "redux";
+import {Nullable} from "../../types";
 
 type PathParamsType = {
     userId: string
@@ -16,6 +17,8 @@ type MainPropsType = RouteComponentProps<PathParamsType> & ProfileContainerProps
 type MSTPType = {
     profile: UserProfileType
     status: string
+    authorizedUserId: Nullable<number>
+    isAuth: boolean
 }
 
 type MDTPType = {
@@ -32,7 +35,7 @@ class ProfileContainer extends React.Component<MainPropsType> {
         let userId: string | undefined = this.props.match.params.userId
         console.log(userId)
         if (!userId) {
-            userId = "19866"
+            userId = this.props.authorizedUserId!.toString()
         }
         this.props.showUserTC(+userId)
         this.props.getUserStatusTC(+userId)
@@ -50,7 +53,9 @@ class ProfileContainer extends React.Component<MainPropsType> {
 
 let mapStateToProps = (state: APPStateType): MSTPType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.authSetting.id,
+    isAuth: state.authSetting.isAuth
 })
 
 export default compose<React.ComponentType>(
