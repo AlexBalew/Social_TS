@@ -12,7 +12,7 @@ import usersReducer, {
     switchPreloader,
     unFollowAC,
 } from "./Reducers/users-reducer";
-import authReducer, {setUserDataAC} from "./Reducers/auth-reducer";
+import authReducer from "./Reducers/auth-reducer";
 import thunkMiddleware from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 
@@ -26,7 +26,6 @@ export type AllACType = ReturnType<typeof addPostAC> |
     ReturnType<typeof setTotalUsersAmount> |
     ReturnType<typeof switchPreloader> |
     ReturnType<typeof setUserProfile> |
-    ReturnType<typeof setUserDataAC> |
     ReturnType<typeof followedUsersIdAC> |
     ReturnType<typeof setUserStatus> |
     ReturnType<typeof setFilterAC>

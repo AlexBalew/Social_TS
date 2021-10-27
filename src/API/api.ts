@@ -1,6 +1,7 @@
 import axios from "axios";
 import {UpdateUserPhotoType, UpdateUserStatusType, UserProfileType} from "../redux/Reducers/profile-reducer";
 import avatar from './../files/images/avatar.jpg'
+import {AuthUserType, ResponseType} from "../redux/Reducers/auth-reducer";
 
 const baseAxiosSettings = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -12,11 +13,6 @@ const baseAxiosSettings = axios.create({
 
 export const getUsers = (currentPage: number, pageSize: number, term: string = '', friend: null | boolean = null) => {
     return baseAxiosSettings.get(`users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? '' : `${friend}`))
-        .then(res => res.data)
-}
-
-export const authMe = () => {
-    return baseAxiosSettings.get(`auth/me`)
         .then(res => res.data)
 }
 
@@ -59,5 +55,19 @@ export const profileAPI = {
     updatePhoto() {
         return baseAxiosSettings.put<UpdateUserPhotoType>(`profile/photo/`, {image: avatar})
             .then(res => res.data)
+    }
+}
+
+export const authAPI = {
+    login (email: string, password: string, rememberMe = false) {
+        return baseAxiosSettings.post<ResponseType<{userId: string}>>(`auth/login`, {email, password, rememberMe})
+            .then(res => res.data)
+    },
+    authMe () {
+        return baseAxiosSettings.get<ResponseType<AuthUserType>>(`auth/me`)
+            .then(res => res.data)
+    },
+    logOut() {
+        return baseAxiosSettings.delete<ResponseType>(`auth/login`)
     }
 }
