@@ -14,7 +14,7 @@ export type AuthUserType = {
 
 let initialState: AuthUserType = {
     email: null,
-    id: null,
+    id: null, //null крашит приложение(profile container)
     login: null,
     isAuth: false
 }
@@ -30,7 +30,7 @@ const authReducer = (state: AuthUserType = initialState, action: AllAuthReducerA
 
     switch (action.type) {
         case 'SET_USER_DATA': {
-            let a = {...state, ...action.data} //var is used here for an access to debugger isAuth??
+                 let a = {...state, ...action.data} //var is used here for an access to debugger isAuth??
             return a
         }
         default:
@@ -51,8 +51,8 @@ export const setUserDataAC = (data: AuthUserType) => {
     } as const
 }
 
-export const getAuthUserDataTC = () => (dispatch: Dispatch<AllAuthReducerACType>) => {
-    authAPI.authMe()
+export const authMeTC = () => (dispatch: Dispatch<AllAuthReducerACType>) => {
+    return authAPI.authMe() //return для корректной работы initializeTC Promise.all
         .then(data => {
             if (data.resultCode === 0) {
                 dispatch(setUserDataAC({
@@ -71,7 +71,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
     authAPI.login(email, password, rememberMe)
         .then(data => {
             if (data.resultCode === 0) {
-                dispatch(getAuthUserDataTC())
+                dispatch(authMeTC())
             } else {
                 if (data.messages[0].length > 0) {
                     dispatch(stopSubmit('login', {_error: data.messages[0]}))

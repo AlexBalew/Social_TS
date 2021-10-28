@@ -9,7 +9,7 @@ import {compose} from "redux";
 import {Nullable} from "../../types";
 
 type PathParamsType = {
-    userId: string
+    userId: string | undefined
 }
 
 type MainPropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
@@ -32,10 +32,13 @@ type ProfileContainerPropsType = MSTPType & MDTPType
 class ProfileContainer extends React.Component<MainPropsType> {
 
     componentDidMount() {
-        let userId: string | undefined = this.props.match.params.userId
+        let userId = this.props.match.params.userId
         console.log(userId)
         if (!userId) {
             userId = this.props.authorizedUserId!.toString()
+            if (!userId) { //скопировано с гитхаб
+                this.props.history.push("/login");
+            }
         }
         this.props.showUserTC(+userId)
         this.props.getUserStatusTC(+userId)

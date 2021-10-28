@@ -15,6 +15,7 @@ import usersReducer, {
 import authReducer from "./Reducers/auth-reducer";
 import thunkMiddleware from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
+import appReducer from "./Reducers/app-reducer";
 
 
 export type AllACType = ReturnType<typeof addPostAC> |
@@ -38,6 +39,7 @@ let mainReducer = combineReducers({
     friendsBar: friendsBarReducer,
     usersPage: usersReducer,
     authSetting: authReducer,
+    app: appReducer,
     form: formReducer
 })
 
