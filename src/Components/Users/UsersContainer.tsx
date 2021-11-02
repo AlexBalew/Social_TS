@@ -1,11 +1,14 @@
 import {connect} from "react-redux";
 import {
-    followAC, followedUsersIdAC, getUsersTC,
+    FilterFormType,
+    followAC,
+    followedUsersIdAC,
+    followUserTC,
+    getUsersTC,
     setCurrentPage,
     unFollowAC,
-    followUserTC,
     unFollowUserTC,
-    UserType, FilterFormType
+    UserType
 } from "../../redux/Reducers/users-reducer";
 import React from "react";
 import Users from "./Users";
@@ -14,12 +17,13 @@ import {withAuthRedirectComponent} from "../../hoc/withAuthRedirectComponent";
 import {compose} from "redux";
 import {APPStateType} from "../../redux/redux-store";
 import {
-    getCurrentPage, getFilter,
+    getCurrentPage,
+    getFilter,
     getFollowedUsersId,
-    getPageSize,
-    getUsers,
     getIsFetching,
-    getTotalUsersAmount
+    getPageSize,
+    getTotalUsersAmount,
+    getUsersSuper
 } from "../../redux/selectors/users.selectors";
 
 type mapStateToPropsType = {
@@ -104,7 +108,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
 let mapStateToProps = (state: APPStateType): mapStateToPropsType => {
 
     return {
-        users: getUsers(state),
+        users: getUsersSuper(state),
         pageSize: getPageSize(state),
         totalUsersAmount: getTotalUsersAmount(state),
         currentPage: getCurrentPage(state),

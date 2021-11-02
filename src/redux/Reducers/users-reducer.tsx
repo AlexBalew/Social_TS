@@ -142,11 +142,11 @@ export const setFilterAC = (filter: FilterFormType) => {
 }
 
 
-export const getUsersTC = (currentPage: number, pageSize: number, filter: FilterFormType) => (dispatch: Dispatch) => {
+export const getUsersTC = (page: number, pageSize: number, filter: FilterFormType) => (dispatch: Dispatch) => {
     dispatch(switchPreloader(true))
     dispatch(setFilterAC(filter))
-    //dispatch(setCurrentPage(currentPage))
-    requestUsers(currentPage, pageSize, filter.term, filter.friend)
+    //dispatch(setCurrentPage(page))
+    requestUsers(page, pageSize, filter.term, filter.friend)
         .then(data => {
             dispatch(switchPreloader(false))
             dispatch(setUsers(data.items))
