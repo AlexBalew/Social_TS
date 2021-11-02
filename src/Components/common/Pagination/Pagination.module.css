@@ -1,0 +1,10 @@
+.selected {
+    font-weight: bold;
+    cursor: pointer;
+    color: firebrick;
+}
+
+.notSelected {
+    color: black;
+    cursor: pointer;
+}

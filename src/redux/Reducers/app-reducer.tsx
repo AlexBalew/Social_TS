@@ -15,7 +15,7 @@ let initialState: AppInitType = {
 const appReducer = (state: AppInitType = initialState, action: AllAppReducerACType): AppInitType => {
 
     switch (action.type) {
-        case 'SET_INITIALIZED_SUCCESS': {
+        case 'app/SET_INITIALIZED_SUCCESS': {
             let a = {...state, isInitialized: true} //var is used here for an access to debugger
 
             return a
@@ -33,7 +33,7 @@ type setUserDataACType = ReturnType<typeof setAppInitializedAC>
 
 export const setAppInitializedAC = () => {
     return {
-        type: 'SET_INITIALIZED_SUCCESS',
+        type: 'app/SET_INITIALIZED_SUCCESS',
     } as const
 }
 

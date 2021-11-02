@@ -29,7 +29,7 @@ export type ResponseType<T = {}> = {
 const authReducer = (state: AuthUserType = initialState, action: AllAuthReducerACType): AuthUserType => {
 
     switch (action.type) {
-        case 'SET_USER_DATA': {
+        case 'auth/SET_USER_DATA': {
                  let a = {...state, ...action.data} //var is used here for an access to debugger isAuth??
             return a
         }
@@ -46,46 +46,40 @@ type setUserDataACType = ReturnType<typeof setUserDataAC>
 
 export const setUserDataAC = (data: AuthUserType) => {
     return {
-        type: 'SET_USER_DATA',
+        type: 'auth/SET_USER_DATA',
         data,
     } as const
 }
 
-export const authMeTC = () => (dispatch: Dispatch<AllAuthReducerACType>) => {
-    return authAPI.authMe() //return для корректной работы initializeTC Promise.all
-        .then(data => {
-            if (data.resultCode === 0) {
+export const authMeTC = () => async (dispatch: Dispatch<AllAuthReducerACType>) => {
+    let response = await authAPI.authMe()
+            if (response.resultCode === 0) {
                 dispatch(setUserDataAC({
-                    login: data.data.login,
-                    id: data.data.id,
-                    email: data.data.email,
+                    login: response.data.login,
+                    id: response.data.id,
+                    email: response.data.email,
                     isAuth: true
                 }))
-                console.log(data.data)
             }
-        });
 }
-//dispatch: Dispatch<AllAuthReducerACType>
-export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: ThunkDispatch<APPStateType, unknown, AllAuthReducerACType | FormAction>) => {
 
-    authAPI.login(email, password, rememberMe)
-        .then(data => {
-            if (data.resultCode === 0) {
+//dispatch: Dispatch<AllAuthReducerACType>
+export const loginTC = (email: string, password: string, rememberMe: boolean) => async (dispatch: ThunkDispatch<APPStateType, unknown, AllAuthReducerACType | FormAction>) => {
+
+   let response = await authAPI.login(email, password, rememberMe)
+            if (response.resultCode === 0) {
                 dispatch(authMeTC())
             } else {
-                if (data.messages[0].length > 0) {
-                    dispatch(stopSubmit('login', {_error: data.messages[0]}))
+                if (response.messages[0].length > 0) {
+                    dispatch(stopSubmit('login', {_error: response.messages[0]}))
                 }
             }
-        });
 }
 
-export const logOutTC = () => (dispatch: ThunkDispatch<APPStateType, unknown, AllAuthReducerACType>) => {
-    authAPI.logOut()
-        .then(data => {
-            if (data.data.resultCode === 0) {
+export const logOutTC = () => async (dispatch: ThunkDispatch<APPStateType, unknown, AllAuthReducerACType>) => {
+    let response = await authAPI.logOut()
+            if (response.data.resultCode === 0) {
                 dispatch(setUserDataAC({login: null, id: null, email: null, isAuth: false}))
             }
-        });
 }
 

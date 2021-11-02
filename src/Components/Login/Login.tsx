@@ -50,10 +50,10 @@ export default connect<mapStateToPropsLoginType,mapDispatchToPropsLoginType,{},A
 
 
 
-export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
 
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field placeholder={'email'} name={'email'}
                        component={Input} validate={[required]}/>
@@ -65,8 +65,8 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <Field component={Input} name={'rememberMe'} type={'checkbox'}/> remember me
             </div>
-            {props.error && <div className={s.errorMessage}>
-                {props.error}
+            {error && <div className={s.errorMessage}>
+                {error}
             </div>}
             <button>login</button>
         </form>

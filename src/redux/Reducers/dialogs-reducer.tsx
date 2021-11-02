@@ -39,7 +39,7 @@ let initialState: DialogsPageType = {
 const dialogsReducer = (state: DialogsPageType = initialState, action: AllACType): DialogsPageType => {
 
     switch (action.type) {
-        case 'SEND_MESSAGE': {
+        case 'dialog/SEND_MESSAGE': {
             let body = action.newDialogMessage
             return {...state, messages: [...state.messages, {id: 6, message: body}]}
         }
@@ -52,7 +52,7 @@ export default dialogsReducer;
 
 export const sendNewDialogMessageAC = (newDialogMessage: string) => {
     return {
-        type: 'SEND_MESSAGE',
+        type: 'dialog/SEND_MESSAGE',
         newDialogMessage
     } as const
 }

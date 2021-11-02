@@ -8,17 +8,17 @@ type TextAreaPropsType = {
 
 export const FormControl: React.FC<TextAreaPropsType> = ({
                                                              input,
-                                                             meta,
+                                                             meta: {touched, error},
                                                              children,
                                                              ...props
                                                          }) => { //FC?
-    const hasError = meta.touched && meta.error
+    const hasError = touched && error
     return (
         <div className={s.formControl + ' ' + (hasError ? s.error : '')}>
             <div>
                 {children}
             </div>
-            {hasError && <div className={s.errorMessage}>{meta.error}</div>}
+            {hasError && <div className={s.errorMessage}>{error}</div>}
         </div>
     )
 }

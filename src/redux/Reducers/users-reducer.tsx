@@ -46,28 +46,28 @@ let initialState: UsersPageType = {
 const usersReducer = (state: UsersPageType = initialState, action: AllACType): UsersPageType => {
 
     switch (action.type) {
-        case 'FOLLOW': {
+        case 'users/FOLLOW': {
             return {...state, users: state.users.map(u => u.id === action.userID ? {...u, followed: true} : u)}
         }
-        case 'UNFOLLOW': {
+        case 'users/UNFOLLOW': {
             return {...state, users: state.users.map(u => u.id === action.userID ? {...u, followed: false} : u)}
         }
-        case 'SET_USERS': {
+        case 'users/SET_USERS': {
             return {...state, users: action.users}
         }
-        case 'SET_FILTER': {
+        case 'users/SET_FILTER': {
             return {...state, filter: action.payload}
         }
-        case 'SET_CURRENT_PAGE': {
+        case 'users/SET_CURRENT_PAGE': {
             return {...state, currentPage: action.currentPage}
         }
-        case 'SET_TOTAL_USERS_AMOUNT': {
+        case 'users/SET_TOTAL_USERS_AMOUNT': {
             return {...state, totalUsersAmount: action.totalAmount}
         }
-        case 'SWITCH_PRELOADER': {
+        case 'users/SWITCH_PRELOADER': {
             return {...state, isFetching: action.isFetching}
         }
-        case 'SWITCH_IS_FOLLOW': {
+        case 'users/SWITCH_IS_FOLLOW': {
             return {
                 ...state,
                 followedUsersId: action.isFetching
@@ -85,14 +85,14 @@ export default usersReducer;
 
 export const followAC = (userID: number) => {
     return {
-        type: 'FOLLOW',
+        type: 'users/FOLLOW',
         userID,
     } as const
 }
 
 export const unFollowAC = (userID: number) => {
     return {
-        type: 'UNFOLLOW',
+        type: 'users/UNFOLLOW',
         userID,
     } as const
 }
@@ -100,35 +100,35 @@ export const unFollowAC = (userID: number) => {
 export const setUsers = (users: Array<UserType>) => {
 
     return {
-        type: 'SET_USERS',
+        type: 'users/SET_USERS',
         users,
     } as const
 }
 
 export const setCurrentPage = (currentPage: number) => {
     return {
-        type: 'SET_CURRENT_PAGE',
+        type: 'users/SET_CURRENT_PAGE',
         currentPage,
     } as const
 }
 
 export const setTotalUsersAmount = (totalAmount: number) => {
     return {
-        type: 'SET_TOTAL_USERS_AMOUNT',
+        type: 'users/SET_TOTAL_USERS_AMOUNT',
         totalAmount,
     } as const
 }
 
 export const switchPreloader = (isFetching: boolean) => {
     return {
-        type: 'SWITCH_PRELOADER',
+        type: 'users/SWITCH_PRELOADER',
         isFetching
     } as const
 }
 
 export const followedUsersIdAC = (id: number, isFetching: boolean) => {
     return {
-        type: 'SWITCH_IS_FOLLOW',
+        type: 'users/SWITCH_IS_FOLLOW',
         id,
         isFetching
     } as const
@@ -136,42 +136,37 @@ export const followedUsersIdAC = (id: number, isFetching: boolean) => {
 
 export const setFilterAC = (filter: FilterFormType) => {
     return {
-        type: 'SET_FILTER',
+        type: 'users/SET_FILTER',
         payload: filter,
     } as const
 }
 
 
-export const getUsersTC = (page: number, pageSize: number, filter: FilterFormType) => (dispatch: Dispatch) => {
+export const getUsersTC = (page: number, pageSize: number, filter: FilterFormType) => async (dispatch: Dispatch) => {
     dispatch(switchPreloader(true))
     dispatch(setFilterAC(filter))
     //dispatch(setCurrentPage(page))
-    requestUsers(page, pageSize, filter.term, filter.friend)
-        .then(data => {
+    let response = await requestUsers(page, pageSize, filter.term, filter.friend)
             dispatch(switchPreloader(false))
-            dispatch(setUsers(data.items))
+            dispatch(setUsers(response.items))
             // dispatch(setTotalUsersAmount(data.totalCount)) //проверить, что этот параметр приходит в дата
-        });
 }
 
-export const followUserTC = (userId: number) => (dispatch: Dispatch) => {
+
+export const followUserTC = (userId: number) => async (dispatch: Dispatch) => {
     dispatch(followedUsersIdAC(userId, true))
-    follow(userId)
-        .then(data => {
-            if (data.resultCode === 0) {
+    let response = await follow(userId)
+            if (response.resultCode === 0) {
                 dispatch(followAC(userId))
             }
             dispatch(followedUsersIdAC(userId, false))
-        });
 }
 
-export const unFollowUserTC = (userId: number) => (dispatch: Dispatch) => {
+export const unFollowUserTC = (userId: number) => async (dispatch: Dispatch) => {
     dispatch(followedUsersIdAC(userId, true))
-    unFollow(userId)
-        .then(data => {
-            if (data.resultCode === 0) {
+   let response = await unFollow(userId)
+            if (response.resultCode === 0) {
                 dispatch(unFollowAC(userId))
             }
             dispatch(followedUsersIdAC(userId, false))
-        });
 }

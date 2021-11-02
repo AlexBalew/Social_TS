@@ -20,12 +20,11 @@ type NewPostFormDataType = {
 
 
 
-export const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = React.memo((props: MyPostsPropsType) => {
 
-    let postsElements = props.posts.map(m => <Post key={v1()} message={m.message}
+    let postsElements = [...props.posts].reverse().map(m => <Post key={v1()} message={m.message}
                                                    likesCounter={m.likesCounter}
                                                    id={m.id}/>)
-
 
     const addNewPost = (values: NewPostFormDataType) => {
         props.addPost(values.newPost)
@@ -40,7 +39,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
             </div>
         </div>
     )
-};
+})
 
 export default MyPosts;
 

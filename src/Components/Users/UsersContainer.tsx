@@ -56,7 +56,8 @@ export type UsersPropsType = {
 class UsersContainer extends React.Component<UsersPropsType> {
 
     componentDidMount() {
-        this.props.getUsersTC(this.props.currentPage, this.props.pageSize, this.props.filter)
+        let {currentPage, pageSize, filter} = this.props
+        this.props.getUsersTC(currentPage, pageSize, filter)
     }
 
     onPageNumberChange = (p: number) => {
@@ -92,19 +93,6 @@ class UsersContainer extends React.Component<UsersPropsType> {
     }
 }
 
-/*let mapStateToProps = (state: APPStateType): mapStateToPropsType => {
-
-    return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersAmount: state.usersPage.totalUsersAmount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followedUsersId: state.usersPage.followedUsersId,
-        filter: state.usersPage.filter
-    }
-}*/
-
 let mapStateToProps = (state: APPStateType): mapStateToPropsType => {
 
     return {
@@ -130,16 +118,3 @@ export default compose<React.ComponentType>(
     }),
     withAuthRedirectComponent
 )(UsersContainer)
-
-/*
-let withRedirect = withAuthRedirectComponent(UsersContainer)
-
-export default connect(mapStateToProps, {
-    follow: followAC,
-    unfollow: unFollowAC,
-    setCurrentPage,
-    followedUsersIdAC,
-    getUsersTC,
-    followUserTC,
-    unFollowUserTC
-})(withRedirect)*/
