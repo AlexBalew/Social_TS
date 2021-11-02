@@ -1,4 +1,4 @@
-import {follow, getUsers, unFollow} from "../../API/api";
+import {follow, requestUsers, unFollow} from "../../API/api";
 import {AllACType} from "../redux-store";
 import {Dispatch} from "redux";
 
@@ -146,7 +146,7 @@ export const getUsersTC = (currentPage: number, pageSize: number, filter: Filter
     dispatch(switchPreloader(true))
     dispatch(setFilterAC(filter))
     //dispatch(setCurrentPage(currentPage))
-    getUsers(currentPage, pageSize, filter.term, filter.friend)
+    requestUsers(currentPage, pageSize, filter.term, filter.friend)
         .then(data => {
             dispatch(switchPreloader(false))
             dispatch(setUsers(data.items))

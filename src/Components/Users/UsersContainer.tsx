@@ -13,6 +13,14 @@ import Preloader from "../common/Preloader/Preloader";
 import {withAuthRedirectComponent} from "../../hoc/withAuthRedirectComponent";
 import {compose} from "redux";
 import {APPStateType} from "../../redux/redux-store";
+import {
+    getCurrentPage, getFilter,
+    getFollowedUsersId,
+    getPageSize,
+    getUsers,
+    getIsFetching,
+    getTotalUsersAmount
+} from "../../redux/selectors/users.selectors";
 
 type mapStateToPropsType = {
     users: Array<UserType>
@@ -80,7 +88,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
     }
 }
 
-let mapStateToProps = (state: APPStateType): mapStateToPropsType => {
+/*let mapStateToProps = (state: APPStateType): mapStateToPropsType => {
 
     return {
         users: state.usersPage.users,
@@ -90,6 +98,19 @@ let mapStateToProps = (state: APPStateType): mapStateToPropsType => {
         isFetching: state.usersPage.isFetching,
         followedUsersId: state.usersPage.followedUsersId,
         filter: state.usersPage.filter
+    }
+}*/
+
+let mapStateToProps = (state: APPStateType): mapStateToPropsType => {
+
+    return {
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersAmount: getTotalUsersAmount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followedUsersId: getFollowedUsersId(state),
+        filter: getFilter(state)
     }
 }
 
