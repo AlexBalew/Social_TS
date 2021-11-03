@@ -1,17 +1,17 @@
 import React from 'react';
 import './App.css';
 import Nav from './Components/Nav/Nav';
-import {Route, Switch, withRouter} from "react-router-dom";
+import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import Login from "./Components/Login/Login";
 import {Settings} from "./Components/Settings/Settings";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeTC} from "./redux/Reducers/app-reducer";
-import {APPStateType} from "./redux/redux-store";
+import store, {APPStateType} from "./redux/redux-store";
 import Preloader from "./Components/common/Preloader/Preloader";
 
 type APPPropsType = MSTPType & MDTPType
@@ -41,7 +41,7 @@ class App extends React.Component<APPPropsType> {
                 <div className='app-wrapper-content'>
                     <Switch>
                         <Route path={'/profile/:userId?'}
-                                   render={() => <ProfileContainer/>}/>
+                               render={() => <ProfileContainer/>}/>
                         <Route path={'/dialogs'}
                                render={() => <DialogsContainer/>}/>
                         {/*<Route path={'/friends'}
@@ -63,6 +63,15 @@ const mapStateToProps = (state: APPStateType) => ({
     isInitialized: state.app.isInitialized
 })
 
-export default compose<React.ComponentType>(
+const AppContainer = compose<React.ComponentType>(
     withRouter,
     connect<MSTPType, MDTPType, {}, APPStateType>(mapStateToProps, {initializeTC}))(App);
+
+export const SocialNetworkApp = () => {
+    return <BrowserRouter>
+        <Provider store={store}>
+            <AppContainer/>
+        </Provider>
+    </BrowserRouter>
+}
+

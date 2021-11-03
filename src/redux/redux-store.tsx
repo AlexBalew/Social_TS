@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import profileReducer, {addPostAC, setUserProfile, setUserStatus,} from "./Reducers/profile-reducer";
 import dialogsReducer, {sendNewDialogMessageAC} from "./Reducers/dialogs-reducer";
 import friendsBarReducer from "./Reducers/friendsBar-reducer";
@@ -43,10 +43,12 @@ let mainReducer = combineReducers({
     form: formReducer
 })
 
-// let store: Store<APPStateType, AllACType> = createStore(mainReducer, applyMiddleware(thunkMiddleware))
-let store = createStore(mainReducer, applyMiddleware(thunkMiddleware))
+//let store: Store<APPStateType, AllACType> = createStore(mainReducer, applyMiddleware(thunkMiddleware))
+//let store = createStore(mainReducer, applyMiddleware(thunkMiddleware))
 //export type AppStoreType = typeof store
 
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(mainReducer, composeEnhancers(applyMiddleware(thunkMiddleware)))
 
 // @ts-ignore
 window.store = store
