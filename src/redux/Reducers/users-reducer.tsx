@@ -32,8 +32,8 @@ export type UsersPageType = {
 
 let initialState: UsersPageType = {
     users: [],
-    pageSize: 5,
-    totalUsersAmount: 100,
+    pageSize: 8,
+    totalUsersAmount: 0,
     currentPage: 1,
     isFetching: false,
     followedUsersId: [],
@@ -149,7 +149,7 @@ export const getUsersTC = (page: number, pageSize: number, filter: FilterFormTyp
     let response = await requestUsers(page, pageSize, filter.term, filter.friend)
             dispatch(switchPreloader(false))
             dispatch(setUsers(response.items))
-            // dispatch(setTotalUsersAmount(data.totalCount)) //проверить, что этот параметр приходит в дата
+            dispatch(setTotalUsersAmount(response.totalCount)) //проверить, что этот параметр приходит в дата
 }
 
 

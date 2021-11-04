@@ -25,10 +25,12 @@ let Users = (props: UsersPropsType) => {
 
     return <div>
         <UsersSearchForm onFilterChanged={props.onFilterChanged}/>
-        <Pagination totalUsersAmount={props.totalUsersAmount}
+        <Pagination totalItemsAmount={props.totalUsersAmount}
                     pageSize={props.pageSize}
                     currentPage={props.currentPage}
-                    onPageNumberChange={props.onPageNumberChange}/>
+                    onPageNumberChange={props.onPageNumberChange}
+                    numberOfPagesInOnePortion={8}
+        />
         {
             props.users.map(u => <User key={u.id} user={u}
                                        followedUsersId={props.followedUsersId}

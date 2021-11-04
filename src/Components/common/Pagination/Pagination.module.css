@@ -1,10 +1,13 @@
-.selected {
-    font-weight: bold;
+.pagination {
+    margin: 10px;
     cursor: pointer;
-    color: firebrick;
+}
+.pageNumber {
+    padding: 2px;
+    border: 1px solid grey;
 }
 
-.notSelected {
-    color: black;
-    cursor: pointer;
+.pageNumber.selectedPage {
+    font-weight: bold;
+    border-color: black;
 }

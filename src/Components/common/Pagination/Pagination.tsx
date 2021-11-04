@@ -1,32 +1,59 @@
-import React from "react";
-import s from './Pagination.module.css'
+import React, {useState} from "react";
+import s from './Pagination.module.css';
+import cn from "classnames";
 
 
 type PaginationPropsType = {
-    totalUsersAmount: number
+    totalItemsAmount: number
     pageSize: number
     currentPage: number
     onPageNumberChange: (p: number) => void
+    numberOfPagesInOnePortion: number
+
 }
 
-let Pagination = ({totalUsersAmount, pageSize, currentPage, onPageNumberChange, ...props}: PaginationPropsType) => {
+let Pagination = ({
+                      totalItemsAmount,
+                      pageSize,
+                      currentPage,
+                      onPageNumberChange,
+                      numberOfPagesInOnePortion,
+                      ...props
+                  }: PaginationPropsType) => {
 
-    let amountOfPages = Math.ceil(totalUsersAmount / pageSize)
+    let totalAmountOfPages = Math.ceil(totalItemsAmount / pageSize)
     let pages = []
-    for (let i = 1; i <= amountOfPages; i++) {
+    for (let i = 1; i <= totalAmountOfPages; i++) {
         pages.push(i)
     }
 
+    let numberOfPortions = Math.ceil(totalAmountOfPages / numberOfPagesInOnePortion)
+    let [portionNumber, setPortionNumber] = useState(1)
+    let leftPortionPageNumber = (portionNumber - 1) * numberOfPortions + 1
+    let rightPortionPageNumber = leftPortionPageNumber + numberOfPagesInOnePortion - 1
+
     return (
-        <div>
 
-            <div style={{color: 'red'}}>
-                {pages.map(p => <span key={p} className={currentPage === p ? s.selected : s.notSelected}
-                                      onClick={() => {
-                                          onPageNumberChange(p)
-                                      }}>{p} </span>)}
-            </div>
+        <div className={s.pagination}>
+            {portionNumber > 1 &&
+            <button onClick={() => {
+                setPortionNumber(portionNumber - 1)
+            }}>prev</button>}
+            {pages
+                .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                .map(p => {
+                    return <span key={p} className={cn({
+                        [s.selectedPage]: currentPage === p
+                    }, s.pageNumber)}
+                                 onClick={() => {
+                                     onPageNumberChange(p)
+                                 }}>{p} </span>
+                })}
 
+            {numberOfPortions > portionNumber &&
+            <button onClick={() => {
+                setPortionNumber(portionNumber + 1)
+            }}>next</button>}
         </div>
     )
 }
