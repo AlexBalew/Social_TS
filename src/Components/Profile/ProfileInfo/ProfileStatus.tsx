@@ -33,6 +33,7 @@ function ProfileStatus(props: ProfileStatusPropsType) {
 
     const setViewMode = () => {
         setEditMode(false)
+        props.updateUserStatusTC(status)
     }
 
     return (
