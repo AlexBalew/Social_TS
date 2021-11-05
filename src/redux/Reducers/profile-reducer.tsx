@@ -38,12 +38,17 @@ export type UpdateUserStatusType = {
     data: string
 }
 
+type PhotosType = {
+    small: string
+    large: string
+}
+
 export type UpdateUserPhotoType = {
     data: {
-        small: string
-        large: string
+        photos: PhotosType
     }
     resultCode: number
+    fieldsErrors: []
     messages: string[]
 }
 
@@ -80,6 +85,9 @@ const profileReducer = (state: ProfilePageType = initialState, action: AllACType
         case 'profile/SET_USERS_STATUS': {
             return {...state, status: action.status}
         }
+        case 'profile/UPDATE_PHOTO': {
+          return {...state, profile: {...state.profile, photos: action.photos}}
+        }
         default:
             return state
     }
@@ -109,6 +117,13 @@ export const setUserStatus = (status: string) => {
     } as const
 }
 
+export const updatePhotoAC = (photos: PhotosType) => {
+    return {
+        type: 'profile/UPDATE_PHOTO',
+        photos
+    } as const
+}
+
 
 export const showUserTC = (userId: number) => async (dispatch: Dispatch) => {
     let response = await showUser(userId)
@@ -124,5 +139,12 @@ export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch)
     let response = await profileAPI.updateStatus(status)
     if (response.resultCode === 0) {
         dispatch(setUserStatus(status))
+    }
+}
+
+export const savePhotoTC = (selectedFile: string | Blob) => async (dispatch: Dispatch) => {
+    let response = await profileAPI.updatePhoto(selectedFile)
+    if (response.resultCode === 0) {
+        dispatch(updatePhotoAC(response.data.photos))
     }
 }

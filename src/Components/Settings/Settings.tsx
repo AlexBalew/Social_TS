@@ -22,9 +22,9 @@ export const Settings = (props: SettingsPropsType) => {
     }
 
     const onClickUpdatePhotoHandler = () => {
-        profileAPI.updatePhoto().then(r => {
-            console.log("Your avatar was updated with" + r.data.small)
-        })
+        /*profileAPI.updatePhoto().then(r => {
+            console.log("Your avatar was updated with" + r.photos.small)
+        })*/
     }
 
 

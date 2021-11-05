@@ -35,7 +35,7 @@ const Login = (props: LoginPropsType) => {
     }
     return (
         <>
-            <h2>login</h2>
+            <h2>Hello there!</h2>
             <ReduxLoginForm onSubmit={onSubmit}/>
         </>
 
@@ -53,6 +53,23 @@ export default connect<mapStateToPropsLoginType,mapDispatchToPropsLoginType,{},A
 export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
 
     return (
+        <div>
+            <div>
+            <p>
+                To log in, please, get registration <a href={'https://social-network.samuraijs.com/'}
+                                                       target={'_blank'}
+                                                       rel={"noreferrer"}>here</a>
+            </p>
+            <p>
+                or use these test account credentials:
+            </p>
+            <p>
+                Email: free@samuraijs.com
+            </p>
+            <p>
+                Password: free
+            </p>
+            </div>
         <form onSubmit={handleSubmit}>
             <div>
                 <Field placeholder={'email'} name={'email'}
@@ -70,6 +87,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubm
             </div>}
             <button>login</button>
         </form>
+        </div>
     )
 }
 

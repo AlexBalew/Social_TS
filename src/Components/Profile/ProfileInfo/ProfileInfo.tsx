@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import classes from './ProfileInfo.module.css';
 import Preloader from "../../common/Preloader/Preloader";
 import {UserProfileType} from "../../../redux/Reducers/profile-reducer";
@@ -9,6 +9,8 @@ type PropsType = {
     profile: UserProfileType
     status: string
     updateUserStatusTC: (status: string) => void
+    isOwner: boolean
+    savePhotoTC: (selectedFile: string | Blob) => void
 }
 
 const ProfileInfo = (props: PropsType) => {
@@ -26,12 +28,23 @@ const ProfileInfo = (props: PropsType) => {
         return <Preloader/>
     }
 
+    const onAvatarUploader = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files!.length) {
+            const selectedFile=e.target.files![0]
+            props.savePhotoTC(selectedFile)
+        }
+
+    }
+
     return (
         <div>
             <div className={classes.descriptionBlock}>
-                <img src={props.profile.photos.small !== null ? props.profile.photos.small : userPhoto} alt={'users avatar'}/>
+                <img src={props.profile.photos.small !== null ? props.profile.photos.small : userPhoto}
+                     alt={'users avatar'}/>
+                {!props.isOwner && <input type={'file'} onChange={onAvatarUploader}/>}
                 <div>{props.profile.fullName}</div>
-                <span>My status:</span> <ProfileStatus status={props.status} updateUserStatusTC={props.updateUserStatusTC}/>
+                <span>My status:</span> <ProfileStatus status={props.status}
+                                                       updateUserStatusTC={props.updateUserStatusTC}/>
             </div>
         </div>
     )

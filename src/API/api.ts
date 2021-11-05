@@ -52,8 +52,14 @@ export const profileAPI = {
         return baseAxiosSettings.put<UpdateUserStatusType>(`profile/status/`, {status})
             .then(res => res.data)
     },
-    updatePhoto() {
-        return baseAxiosSettings.put<UpdateUserPhotoType>(`profile/photo/`, {image: avatar})
+    updatePhoto(selectedFile: string | Blob) {
+        const formData = new FormData()
+        formData.append('image', selectedFile)
+        return baseAxiosSettings.put<UpdateUserPhotoType>(`profile/photo/`, formData, {
+            headers: {
+                'Content-type':'multipart/form-data'
+            }
+        })
             .then(res => res.data)
     }
 }

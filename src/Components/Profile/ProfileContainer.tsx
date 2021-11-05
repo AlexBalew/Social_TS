@@ -1,7 +1,7 @@
 import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getUserStatusTC, showUserTC, updateUserStatusTC, UserProfileType} from "../../redux/Reducers/profile-reducer";
+import {getUserStatusTC, showUserTC, updateUserStatusTC, UserProfileType, savePhotoTC} from "../../redux/Reducers/profile-reducer";
 import {APPStateType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirectComponent} from "../../hoc/withAuthRedirectComponent";
@@ -25,18 +25,19 @@ type MDTPType = {
     showUserTC: (userId: number) => void
     getUserStatusTC: (userId: number) => void
     updateUserStatusTC: (status: string) => void
+    savePhotoTC: (selectedFile: string | Blob) => void
 }
 
 type ProfileContainerPropsType = MSTPType & MDTPType
 
 class ProfileContainer extends React.Component<MainPropsType> {
 
-    componentDidMount() {
+    refreshProfile () {
         let userId = this.props.match.params.userId
         console.log(userId)
         if (!userId) {
             userId = this.props.authorizedUserId!.toString()
-            if (!userId) { //скопировано с гитхаб
+            if (!userId) {
                 this.props.history.push("/login");
             }
         }
@@ -44,12 +45,25 @@ class ProfileContainer extends React.Component<MainPropsType> {
         this.props.getUserStatusTC(+userId)
     }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: { match: { params: { userId: string | undefined; }; }; }) {
+        if(this.props.match.params.userId !== prevProps.match.params.userId)
+        this.refreshProfile()
+    }
+
     render() {
 
         return (
-            <Profile {...this.props} profile={this.props.profile}
+            <Profile {...this.props}
+                     isOwner = {!!this.props.match.params.userId}
+                     profile={this.props.profile}
                      status={this.props.status}
-                     updateUserStatusTC={this.props.updateUserStatusTC}/>
+                     updateUserStatusTC={this.props.updateUserStatusTC}
+                     savePhotoTC={this.props.savePhotoTC}
+            />
         )
     }
 }
@@ -63,7 +77,7 @@ let mapStateToProps = (state: APPStateType): MSTPType => ({
 
 export default compose<React.ComponentType>(
     connect<MSTPType, MDTPType, {}, APPStateType>(
-        mapStateToProps, {showUserTC, getUserStatusTC, updateUserStatusTC}),
+        mapStateToProps, {showUserTC, getUserStatusTC, updateUserStatusTC, savePhotoTC}),
     withRouter,
     withAuthRedirectComponent
 )(ProfileContainer)
