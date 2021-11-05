@@ -56,14 +56,15 @@ export type UsersPropsType = {
 class UsersContainer extends React.Component<UsersPropsType> {
 
     componentDidMount() {
+        debugger
         let {currentPage, pageSize, filter} = this.props
         this.props.getUsersTC(currentPage, pageSize, filter)
     }
 
-    onPageNumberChange = (p: number) => {
-        const {pageSize, filter, currentPage} = this.props
-        this.props.setCurrentPage(p)
-        this.props.getUsersTC(currentPage, pageSize, filter)
+    onPageNumberChange = (pageNumber: number) => {
+        debugger
+        const {pageSize, filter} = this.props
+        this.props.getUsersTC(pageNumber, pageSize, filter)
     }
 
     onFilterChanged = (filter: FilterFormType) => {

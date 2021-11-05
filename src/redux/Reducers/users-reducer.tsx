@@ -106,6 +106,7 @@ export const setUsers = (users: Array<UserType>) => {
 }
 
 export const setCurrentPage = (currentPage: number) => {
+    debugger
     return {
         type: 'users/SET_CURRENT_PAGE',
         currentPage,
@@ -113,6 +114,7 @@ export const setCurrentPage = (currentPage: number) => {
 }
 
 export const setTotalUsersAmount = (totalAmount: number) => {
+    debugger
     return {
         type: 'users/SET_TOTAL_USERS_AMOUNT',
         totalAmount,
@@ -143,13 +145,14 @@ export const setFilterAC = (filter: FilterFormType) => {
 
 
 export const getUsersTC = (page: number, pageSize: number, filter: FilterFormType) => async (dispatch: Dispatch) => {
+    debugger
     dispatch(switchPreloader(true))
     dispatch(setFilterAC(filter))
-    //dispatch(setCurrentPage(page))
+    dispatch(setCurrentPage(page))
     let response = await requestUsers(page, pageSize, filter.term, filter.friend)
             dispatch(switchPreloader(false))
             dispatch(setUsers(response.items))
-            dispatch(setTotalUsersAmount(response.totalCount)) //проверить, что этот параметр приходит в дата
+            dispatch(setTotalUsersAmount(response.totalCount))
 }
 
 
