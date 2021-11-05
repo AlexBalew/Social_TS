@@ -17,7 +17,7 @@ let Pagination = ({
                       pageSize,
                       currentPage,
                       onPageNumberChange,
-                      numberOfPagesInOnePortion,
+                      numberOfPagesInOnePortion = 8,
                       ...props
                   }: PaginationPropsType) => {
 
@@ -29,8 +29,8 @@ let Pagination = ({
 
     let numberOfPortions = Math.ceil(totalAmountOfPages / numberOfPagesInOnePortion)
     let [portionNumber, setPortionNumber] = useState(1)
-    let leftPortionPageNumber = (portionNumber - 1) * numberOfPortions + 1
-    let rightPortionPageNumber = leftPortionPageNumber + numberOfPagesInOnePortion - 1
+    let leftPortionPageNumber = (portionNumber - 1) * numberOfPagesInOnePortion + 1
+    let rightPortionPageNumber = portionNumber * numberOfPagesInOnePortion
 
     return (
 
