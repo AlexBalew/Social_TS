@@ -7,17 +7,20 @@ import {loginTC} from "../../redux/Reducers/auth-reducer";
 import {APPStateType} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
 import s from "./../common/formComtrols/formControl.module.css"
+import {Nullable} from "../../types";
 
 type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
+    url: Nullable<string>
 }
 
 type LoginPropsType = mapStateToPropsLoginType & mapDispatchToPropsLoginType
 
 type mapStateToPropsLoginType = {
     isAuth: boolean
+    url: Nullable<string>
 }
 type mapDispatchToPropsLoginType = {
     loginTC: (email: string, password: string, rememberMe: boolean) => void
@@ -36,14 +39,15 @@ const Login = (props: LoginPropsType) => {
     return (
         <>
             <h2>Hello there!</h2>
-            <ReduxLoginForm onSubmit={onSubmit}/>
+            <ReduxLoginForm onSubmit={onSubmit} />
         </>
 
     )
 }
 
 const mapStateToProps = (state: APPStateType): mapStateToPropsLoginType => ({
-    isAuth: state.authSetting.isAuth
+    isAuth: state.authSetting.isAuth,
+    url: state.authSetting.captchaUrl
 })
 
 export default connect<mapStateToPropsLoginType,mapDispatchToPropsLoginType,{},APPStateType>(mapStateToProps, {loginTC})(Login)

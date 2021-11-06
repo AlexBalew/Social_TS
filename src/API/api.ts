@@ -1,7 +1,6 @@
 import axios from "axios";
 import {UpdateUserPhotoType, UpdateUserStatusType, UserProfileType} from "../redux/Reducers/profile-reducer";
-import avatar from './../files/images/avatar.jpg'
-import {AuthUserType, ResponseType} from "../redux/Reducers/auth-reducer";
+import {AuthUserType, ResponseCaptchaType, ResponseType} from "../redux/Reducers/auth-reducer";
 
 const baseAxiosSettings = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -75,5 +74,11 @@ export const authAPI = {
     },
     logOut() {
         return baseAxiosSettings.delete<ResponseType>(`auth/login`)
+    }
+}
+
+export const secureAPI = {
+    getCaptcha () {
+        return baseAxiosSettings.get<ResponseCaptchaType>(`security/get-captcha-url`)
     }
 }
