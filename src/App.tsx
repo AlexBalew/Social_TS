@@ -37,8 +37,9 @@ class App extends React.Component<APPPropsType> {
         return (
             <div className='app-wrapper'>
                 <HeaderContainer/>
-                <Nav/>
+
                 <div className='app-wrapper-content'>
+                    <Nav/>
                     <Switch>
                         <Route path={'/profile/:userId?'}
                                render={() => <ProfileContainer/>}/>
