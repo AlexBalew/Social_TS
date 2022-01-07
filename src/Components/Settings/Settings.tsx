@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
-import {profileAPI, putStatus} from "../../API/api";
+import {putStatus} from "../../API/api";
+import s from './Settings.module.css'
 
 type SettingsPropsType = {
 
@@ -29,13 +30,13 @@ export const Settings = (props: SettingsPropsType) => {
 
 
     return (
-        <>
+        <div className={s.set}>
             <h3>My profile settings</h3>
             <input value={status} onChange={onChangeStatusHandler}/>
             <button onClick={() => onClickHandler(status)}>put new status</button>
          <div>
             <button onClick={() => onClickUpdatePhotoHandler()}>set new photo</button>
          </div>
-        </>
+        </div>
     )
 }
