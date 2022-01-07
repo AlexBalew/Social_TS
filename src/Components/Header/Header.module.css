@@ -1,7 +1,8 @@
 .header {
-    grid-area: h;
+    display: flex;
     background-color: rgba(86, 113, 115, 0.65);
-    width: 900px;
+    min-width: 900px;
+    justify-content: space-between;
 }
 
 .header img {
@@ -10,5 +11,5 @@
 }
 
 .authBlock {
-    float: right;
+
 }
