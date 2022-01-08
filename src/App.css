@@ -1,10 +1,13 @@
 .app-wrapper {
     min-height: 100vh;
     background-color: gray;
+    max-width: 80%;
+    margin-left: 10%;
 }
 
 .app-wrapper-content {
     display: flex;
     flex-direction: row;
+
 }
 
